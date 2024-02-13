@@ -65,6 +65,9 @@ datos = {
   'companies': None,
   'locations': None 
 }
+datos['jobs'] = lt.newList('ARRAY_LIST')
+datos['companies'] = lt.newList('SINGLE_LINKED')  
+datos['locations'] = lt.newList('SINGLE_LINKED')
 
     for row in reader:
     
@@ -77,10 +80,12 @@ datos = {
       datos['jobs'].append(row['open_to_hire_ukrainians']) 
       datos['jobs'].append(row['id'])
       datos['jobs'].append(row['display_offer'])
+      ####
       datos['companies'].append(row['company_name'])
       datos['companies'].append(row['workplace_type'])
       datos['companies'].append(row['company_url'])
       datos['companies'].append(row['company_size'])
+      ####
       datos['locations'].append(row['city']) 
       datos['locations'].append(row['experience_level'])
       datos['locations'].append(row['published_at'])
