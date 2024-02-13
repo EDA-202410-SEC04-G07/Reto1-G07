@@ -62,7 +62,7 @@ def print_menu():
     print("0- Salir")
 
 
-def load_data(control):
+def carga_de_datos_reto_1(control):
     """
     Carga los datos
     """
