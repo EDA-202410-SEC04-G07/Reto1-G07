@@ -43,7 +43,9 @@ def new_controller():
         Se crea una instancia del controlador
     """
     #TODO: Llamar la función del controlador donde se crean las estructuras de datos
-    pass
+    control = controller.new_controller()
+    return control
+    
 
 
 def print_menu():
@@ -65,7 +67,9 @@ def load_data(control):
     Carga los datos
     """
     #TODO: Realizar la carga de datos
-    pass
+    books, authors, tags, book_tags = controller.load_data(control, filename)
+    return books, authors, tags, book_tags
+    
 
 
 def print_data(control, id):
@@ -73,6 +77,7 @@ def print_data(control, id):
         Función que imprime un dato dado su ID
     """
     #TODO: Realizar la función para imprimir un elemento
+    
     pass
 
 def print_req_1(control):
