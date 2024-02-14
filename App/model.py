@@ -57,17 +57,17 @@ def new_data_structs():
 
 def add_data(data_structs, data):
 
-with open('small-jobs.csv') as csvfile:
-   reader = csv.DictReader(csvfile)
+    with open('small-jobs.csv') as csvfile:
+       reader = csv.DictReader(csvfile)
     
-datos = {
-  'jobs': None,
-  'companies': None,
-  'locations': None 
-}
-datos['jobs'] = lt.newList('ARRAY_LIST')
-datos['companies'] = lt.newList('SINGLE_LINKED')  
-datos['locations'] = lt.newList('SINGLE_LINKED')
+    datos = {
+      'jobs': None,
+      'companies': None,
+      'locations': None 
+    }
+    datos['jobs'] = lt.newList('ARRAY_LIST')
+    datos['companies'] = lt.newList('SINGLE_LINKED')  
+    datos['locations'] = lt.newList('SINGLE_LINKED')
 
     for row in reader:
     
@@ -90,7 +90,7 @@ datos['locations'] = lt.newList('SINGLE_LINKED')
       datos['locations'].append(row['experience_level'])
       datos['locations'].append(row['published_at'])
 
-return datos
+    return datos
 
 
 
