@@ -42,11 +42,12 @@ def new_controller():
 # Funciones para la carga de datos
 
 def load_data(control, filename):
-    """
-    Carga los datos del reto
-    """
-    # TODO: Realizar la carga de datos
-    pass
+
+  datos = control["datos"]
+
+  add_data(datos, filename)
+
+  return datos
 
 
 # Funciones de ordenamiento
