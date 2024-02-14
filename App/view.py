@@ -67,8 +67,9 @@ def carga_de_datos_reto_1(control):
     Carga los datos
     """
     #TODO: Realizar la carga de datos
-    books, authors, tags, book_tags = controller.load_data(control, filename)
-    return books, authors, tags, book_tags
+    datos = controller.load_data(control)                                                          
+                                                             
+    return datos
     
 
 
