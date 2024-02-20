@@ -50,7 +50,13 @@ def new_data_structs():
     manera vacía para posteriormente almacenar la información.
     """
     #TODO: Inicializar las estructuras de datos
-    pass
+    catalog = {"jobs": None,
+               }
+    
+    catalog["jobs"] = lt.newList(datastructure="SINGLE_LINKED")
+                                 
+    return catalog
+
 
 
 # Funciones para agregar informacion al modelo
