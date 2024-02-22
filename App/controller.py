@@ -24,7 +24,7 @@ import config as cf
 import model
 import time
 import csv
-
+import os
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -36,18 +36,25 @@ def new_controller():
     Crea una instancia del modelo
     """
     #TODO: Llamar la función del modelo que crea las estructuras de datos
-    pass
+    control = {
+        "model": None
+    }
+    control["model"] = model.newCatalog()
+    return control
+
 
 
 # Funciones para la carga de datos
 
-def load_data(control, filename):
+def load_data(control):
 
-  datos = control["datos"]
+    catalog = control["model"]
+    file = os.path.join(cf.data_dir, "small-jobs.csv")
+    input_file = csv.DictReader(open(file, encoding="utf-8"))
+    for data in input_file:
+        model.addTag(catalog, data)
+    return model.tagSize(catalog)
 
-  add_data(datos, filename)
-
-  return datos
 
 
 # Funciones de ordenamiento
