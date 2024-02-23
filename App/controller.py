@@ -39,7 +39,7 @@ def new_controller():
     control = {
         "model": None
     }
-    control["model"] = model.newCatalog()
+    control["model"] = model.new_data_structs()
     return control
 
 
@@ -47,13 +47,18 @@ def new_controller():
 # Funciones para la carga de datos
 
 def load_data(control):
+    jobs = load_jobs(control)
 
-    catalog = control["model"]
+    return jobs
+
+def load_jobs(control):
+
+    data_structs = control["model"]
     file = os.path.join(cf.data_dir, "small-jobs.csv")
-    input_file = csv.DictReader(open(file, encoding="utf-8"))
-    for data in input_file:
-        model.addTag(catalog, data)
-    return model.tagSize(catalog)
+    input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
+    for job in input_file:
+        model.add_job(data_structs, job)
+    return model.jobs_size(data_structs)
 
 
 

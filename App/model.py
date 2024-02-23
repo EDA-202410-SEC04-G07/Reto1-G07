@@ -26,15 +26,7 @@
 
 
 import config as cf
-from DISClib.ADT import list as lt
-from DISClib.ADT import stack as st
-from DISClib.ADT import queue as qu
-from DISClib.Algorithms.Sorting import shellsort as sa
-from DISClib.Algorithms.Sorting import insertionsort as ins
-from DISClib.Algorithms.Sorting import selectionsort as se
-from DISClib.Algorithms.Sorting import mergesort as merg
-from DISClib.Algorithms.Sorting import quicksort as quk
-assert cf
+from Estructuras import Lista as lis
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá
@@ -50,55 +42,25 @@ def new_data_structs():
     manera vacía para posteriormente almacenar la información.
     """
     #TODO: Inicializar las estructuras de datos
-    catalog = {"jobs": None,
+    data_structs = {"jobs": None,
+                    "skills": None,
+                    "multilocations": None,
+                    "employments": None
                }
     
-    catalog["jobs"] = lt.newList(datastructure="SINGLE_LINKED")
+    data_structs["jobs"] = lis.new_list()
                                  
-    return catalog
+    return data_structs
 
 
 
 # Funciones para agregar informacion al modelo
 
-def add_data(data_structs, data):
+def add_job(data_structs, job):
+    lis.add_last(data_structs["jobs"], job)
 
-    with open('small-jobs.csv') as csvfile:
-       reader = csv.DictReader(csvfile)
-    
-    datos = {
-      'jobs': None,
-      'companies': None,
-      'locations': None 
-    }
-    datos['jobs'] = lt.newList('ARRAY_LIST')
-    datos['companies'] = lt.newList('SINGLE_LINKED')  
-    datos['locations'] = lt.newList('SINGLE_LINKED')
-
-    for row in reader:
-    
-      # Jobs
-      datos['jobs'].append(row['title'])
-      datos['jobs'].append(row['country_code'])  
-      datos['jobs'].append(row['address_text'])
-      datos['jobs'].append(row['marker_icon'])
-      datos['jobs'].append(row['remote_interview'])
-      datos['jobs'].append(row['open_to_hire_ukrainians']) 
-      datos['jobs'].append(row['id'])
-      datos['jobs'].append(row['display_offer'])
-      ####
-      datos['companies'].append(row['company_name'])
-      datos['companies'].append(row['workplace_type'])
-      datos['companies'].append(row['company_url'])
-      datos['companies'].append(row['company_size'])
-      ####
-      datos['locations'].append(row['city']) 
-      datos['locations'].append(row['experience_level'])
-      datos['locations'].append(row['published_at'])
-
-    return datos
-
-
+def jobs_size(data_structs):
+    return lis.size(data_structs["jobs"])
 
 # Funciones para creacion de datos
 

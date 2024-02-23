@@ -160,7 +160,8 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs) == 1:
             print("Cargando información de los archivos ....\n")
-            data = load_data(control)
+            data = carga_de_datos_reto_1(control)
+            print(data)
         elif int(inputs) == 2:
             print_req_1(control)
 
