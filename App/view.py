@@ -59,6 +59,7 @@ def print_menu():
     print("7- Ejecutar Requerimiento 6")
     print("8- Ejecutar Requerimiento 7")
     print("9- Ejecutar Requerimiento 8")
+    print("10- Elegir tipo de lista")
     print("0- Salir")
 
 
@@ -144,6 +145,9 @@ def print_req_8(control):
     # TODO: Imprimir el resultado del requerimiento 8
     pass
 
+def print_tipo_de_lista():
+    tipo_lista = input("Si desea guardar la informacion en Array_list oprima 0. Si la quiere guardar en un linked_list oprima 1")
+    
 
 # Se crea el controlador asociado a la vista
 control = new_controller()
@@ -186,6 +190,9 @@ if __name__ == "__main__":
         elif int(inputs) == 9:
             print_req_8(control)
 
+        elif int(inputs) == 10:
+            print_tipo_de_lista()
+            
         elif int(inputs) == 0:
             working = False
             print("\nGracias por utilizar el programa") 
