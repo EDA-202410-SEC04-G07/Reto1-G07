@@ -49,7 +49,9 @@ def new_data_structs():
                }
     
     data_structs["jobs"] = lis.new_list()
-                                 
+    data_structs["skills"] = lis.new_list()    
+    data_structs["multilocations"] = lis.new_list()
+    data_structs["employments"] = lis.new_list()                        
     return data_structs
 
 
@@ -62,6 +64,23 @@ def add_job(data_structs, job):
 def jobs_size(data_structs):
     return lis.size(data_structs["jobs"])
 
+def add_skills(data_structs, skills):
+    lis.add_last(data_structs["skills"], skills)
+
+def skills_size(data_structs):
+    return lis.size(data_structs["skills"])
+
+def add_multilocations(data_structs, multilocations):
+    lis.add_last(data_structs["multilocations"], multilocations)
+
+def multilocations_size(data_structs):
+    return lis.size(data_structs["multilocations"])
+
+def add_employments(data_structs, employments):
+    lis.add_last(data_structs["employments"], employments)
+
+def employments_size(data_structs):
+    return lis.size(data_structs["employments"])
 # Funciones para creacion de datos
 
 def new_data(id, info):

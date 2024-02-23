@@ -48,8 +48,10 @@ def new_controller():
 
 def load_data(control):
     jobs = load_jobs(control)
-
-    return jobs
+    skills = load_skills(control)
+    multilocations= load_multilocations(control)
+    employments = load_employments(control)
+    return jobs, skills, multilocations, employments
 
 def load_jobs(control):
 
@@ -60,7 +62,33 @@ def load_jobs(control):
         model.add_job(data_structs, job)
     return model.jobs_size(data_structs)
 
+def load_skills(control):
 
+    data_structs = control["model"]
+    file = os.path.join(cf.data_dir, "small-skills.csv")
+    input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
+    for skills in input_file:
+        model.add_skills(data_structs, skills)
+    return model.skills_size(data_structs)
+
+def load_multilocations(control):
+
+    data_structs = control["model"]
+    file = os.path.join(cf.data_dir, "small-multilocations.csv")
+    input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
+    for multilocations in input_file:
+        model.add_multilocations(data_structs, multilocations)
+    return model.multilocations_size(data_structs)
+
+
+def load_employments(control):
+
+    data_structs = control["model"]
+    file = os.path.join(cf.data_dir, "small-employments_types.csv")
+    input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
+    for employments in input_file:
+        model.add_employments(data_structs,employments)
+    return model.employments_size(data_structs)
 
 # Funciones de ordenamiento
 

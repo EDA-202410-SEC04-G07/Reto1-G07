@@ -53,3 +53,10 @@ def size(lista):
 
 def isEmpty(lista):
     return lista['size'] == 0
+
+def exchange(lista, pos1, pos2):
+     elem1= getElement(lista,pos1)
+     elem2= getElement(lista,pos2)
+     changeInfo(lista, pos1,elem2)
+     changeInfo(lista, pos2,elem1)
+     

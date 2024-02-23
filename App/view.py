@@ -67,8 +67,8 @@ def carga_de_datos_reto_1(control):
     Carga los datos
     """
     #TODO: Realizar la carga de datos
-    datos = controller.load_data(control)                                                          
-                                                             
+    jobs,skills,multilocations, employments = controller.load_data(control)                                                          
+    datos = {"jobs":jobs, "skills": skills, "multilocations": multilocations, "employments": employments}                                                     
     return datos
     
 
