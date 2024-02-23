@@ -174,6 +174,13 @@ def req_8(data_structs):
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+def tipo_de_lista(type):
+    if type == 0:
+        return new_data_structs()
+        
+    else: 
+        return new_data_structs_linked()
+
 
 def compare(data_1, data_2):
     """

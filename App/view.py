@@ -146,7 +146,7 @@ def print_req_8(control):
     pass
 
 def print_tipo_de_lista():
-    tipo_lista = input("Si desea guardar la informacion en Array_list oprima 0. Si la quiere guardar en un linked_list oprima 1")
+    tipo_lista = input("Si desea guardar la informacion en Array_list oprima 0. Si la quiere guardar en un linked_list oprima 1:")
     
 
 # Se crea el controlador asociado a la vista
@@ -192,7 +192,7 @@ if __name__ == "__main__":
 
         elif int(inputs) == 10:
             print_tipo_de_lista()
-            
+
         elif int(inputs) == 0:
             working = False
             print("\nGracias por utilizar el programa") 
