@@ -212,3 +212,39 @@ def sort(data_structs):
     """
     #TODO: Crear función de ordenamiento
     pass
+
+
+
+
+##### LABORATORIO 5 #####
+
+
+
+
+
+def comparar_ofertas(job1, job2):
+  if job1['company_name'] < job2['company_name']:
+    return True
+  elif job1['company_name'] == job2['company_name']:
+    if job1['published_at'] < job2['published_at']:
+      return True
+  else:
+    return False
+  
+
+def crear_lista_array():
+  catalogo = {
+    'jobs': lis.newList('ARRAY_LIST', cmpfunction=comparar_ofertas)
+  }
+
+def crear_lista_linked():
+  catalogo = {
+    'jobs': lis.newList('SINGLE_LINKED', cmpfunction=comparar_ofertas)
+  }
+
+
+def estructura_datos(tipo):
+  if tipo == "array":
+    return crear_lista_array()
+  else:
+    return crear_lista_linked()

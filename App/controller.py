@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
-
+from Estructuras import Lista as lis
 import config as cf
 import model
 import time
@@ -188,3 +188,20 @@ def delta_time(start, end):
     """
     elapsed = float(end - start)
     return elapsed
+
+
+
+##### LABORATORIO 5 #####
+
+
+
+def ordenar(catalogo):
+  lis.sort(catalogo['jobs'], lessfunction=model.comparar_ofertas)
+
+def iniciar_datos_lab(tipo_lista):
+  catalogo = model.estructura_datos(tipo_lista) 
+  
+  load_data(catalogo)
+  ordenar(catalogo)
+  
+  return catalogo

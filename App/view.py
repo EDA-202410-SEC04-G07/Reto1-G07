@@ -145,6 +145,19 @@ def print_req_8(control):
     # TODO: Imprimir el resultado del requerimiento 8
     pass
 
+
+
+##### LABORATORIO 5 #####
+
+
+
+def cargar_datos_lab():
+  tipo_lista = input("Tipo de lista (array/linked):")
+  catalogo = controller.init_data(tipo_lista)
+
+
+
+  
 def print_tipo_de_lista():
     tipo_lista = input("Si desea guardar la informacion en Array_list oprima 0. Si la quiere guardar en un linked_list oprima 1:")
     
@@ -188,7 +201,7 @@ if __name__ == "__main__":
             print_req_7(control)
 
         elif int(inputs) == 9:
-            print_req_8(control)
+            cargar_datos_lab(control)
 
         elif int(inputs) == 10:
             print_tipo_de_lista()
