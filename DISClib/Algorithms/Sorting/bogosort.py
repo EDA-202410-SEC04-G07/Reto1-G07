@@ -25,30 +25,30 @@
  *
  """
 
-import config as cf
+from Estructuras import Lista as lis
 import random
 from DISClib.ADT import list as lt
-assert cf
 
-def sort(lst,size):
+
+def bogosort(lst,size):
     
     for pos in range(1,size):
         random_pos = random.randint(1,size)
-        lt.exchange(lst,pos,random_pos)
+        lis.exchange(lst,pos,random_pos)
         
     return lst
 
 def is_sorted(lst,sort_crit,size):
     
     for pos in range(1,size):
-        if sort_crit(lt.getElement(lst,pos),lt.getElement(lst,pos+1)) != True:
+        if sort_crit(lis.getElement(lst,pos),lis.getElement(lst,pos+1)) != True:
             return False
         
     return True
 
-def bogosort(lst,sort_crit):
+def sort(lst,sort_crit):
 
-    size = lt.size(lst)
+    size = lis.size(lst)
     while is_sorted(lst,sort_crit,size) != True:
-        lst = sort(lst,size)
+        lst = bogosort(lst,size)
     return lst

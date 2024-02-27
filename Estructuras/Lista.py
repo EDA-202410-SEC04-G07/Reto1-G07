@@ -1,11 +1,19 @@
 def new_list():
     lista = {
-        "elements": [],
+        "elements": [],#{value:None, next:None}
         "size": 0,
     }
     
     return lista
 
+def newList_linked():
+    lista = {'first': None,
+               'last': None,
+               'size': 0,
+               'type': 'SINGLE_LINKED',
+               }
+    return lista
+     
 def add_last(lista, elem):
     lista["elements"].append(elem)
     lista["size"]+= 1
