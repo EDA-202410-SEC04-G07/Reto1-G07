@@ -26,6 +26,7 @@
 
 
 import config as cf
+from datetime import datetime
 from Estructuras import Lista as lis
 from Sorts import Shell as shs
 from Sorts import Heap as hes
@@ -306,29 +307,46 @@ def sortOfertas(data_structs):
 
 
 
-def comparar_ofertas(job1, job2):
-  if job1['company_name'] < job2['company_name']:
-    return True
-  elif job1['company_name'] == job2['company_name']:
-    if job1['published_at'] < job2['published_at']:
-      return True
-  else:
-    return False
-  
+def cmp_ofertas_by_empresa_y_fecha(job1, job2):
 
-def crear_lista_array():
-  catalogo = {
-    'jobs': lis.newList('ARRAY_LIST', cmpfunction=comparar_ofertas)
-  }
+    if job1["company_name"] < job2["company_name"]:
+        return True
+    elif job1["company_name"] > job2["company_name"]:
+        return False
+    else:
+        if job1["published_at"] < job2["published_at"]:
+            return True
+        else:
+            return False
 
-def crear_lista_linked():
-  catalogo = {
-    'jobs': lis.newList('SINGLE_LINKED', cmpfunction=comparar_ofertas)
-  }
+# ...
+
+def sort(data_structs):
+    lis.sort(data_structs["jobs"], lessfunction=cmp_ofertas_by_empresa_y_fecha)
 
 
-def estructura_datos(tipo):
-  if tipo == "array":
-    return crear_lista_array()
-  else:
-    return crear_lista_linked()
+def estructura_datos(tipo_lista):
+    """
+    Crea una estructura de datos en memoria para el catálogo de acuerdo al tipo seleccionado.
+    """
+    if tipo_lista == "ARRAY_LIST":
+        return {"jobs": lis.new_list(), "skills": lis.new_list(), "multilocations": lis.new_list(), "employments": lis.new_list()}
+    elif tipo_lista == "LINKED_LIST":
+        return {"jobs": LinkedList(), "skills": LinkedList(), "multilocations": LinkedList(), "employments": LinkedList()}
+    
+
+def load_data(catalogo):
+    """
+    Carga los datos de las ofertas de trabajo en la estructura de datos.
+    """
+    with open("large-jobs.csv", "r") as file:
+        data = large-jobs.load(file)
+        for job in data:
+            catalogo["jobs"].append(job)
+            catalogo["skills"].append(job["skills"])
+            catalogo["multilocations"].append(job["multilocations"])
+            catalogo["employments"].append(job["employments"])
+
+
+
+
