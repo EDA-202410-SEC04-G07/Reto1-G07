@@ -25,6 +25,7 @@ import model
 import time
 import csv
 import os
+import time
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -46,53 +47,190 @@ def new_controller():
 
 # Funciones para la carga de datos
 
-def load_data(control):
-    jobs = load_jobs(control)
-    skills = load_skills(control)
-    multilocations= load_multilocations(control)
-    employments = load_employments(control)
+def load_data(control,tamaño):
+    jobs = load_jobs(control,tamaño)
+    skills = load_skills(control,tamaño)
+    multilocations= load_multilocations(control,tamaño)
+    employments = load_employments(control,tamaño)
     return jobs, skills, multilocations, employments
 
-def load_jobs(control):
+def load_jobs(control,tamaño):
 
     data_structs = control["model"]
-    file = os.path.join(cf.data_dir, "small-jobs.csv")
+    if tamaño == 1:
+       file = os.path.join(cf.data_dir, "10-por-jobs.csv")
+    elif tamaño == 2:
+       file = os.path.join(cf.data_dir, "20-por-jobs.csv")
+    elif tamaño == 3:
+       file = os.path.join(cf.data_dir, "30-por-jobs.csv")
+    elif tamaño == 4:
+       file = os.path.join(cf.data_dir, "40-por-jobs.csv")
+    elif tamaño == 5:
+       file = os.path.join(cf.data_dir, "50-por-jobs.csv")
+    elif tamaño == 6:
+       file = os.path.join(cf.data_dir, "60-por-jobs.csv")
+    elif tamaño == 7:
+       file = os.path.join(cf.data_dir, "70-por-jobs.csv")
+    elif tamaño == 8:
+       file = os.path.join(cf.data_dir, "80-por-jobs.csv")
+    elif tamaño == 9:
+       file = os.path.join(cf.data_dir, "90-por-jobs.csv")
+    elif tamaño == 10:
+       file = os.path.join(cf.data_dir, "small-jobs.csv")
+    elif tamaño == 11:
+       file = os.path.join(cf.data_dir, "medium-jobs.csv")
+    elif tamaño == 12:
+       file = os.path.join(cf.data_dir, "large-jobs.csv")
+
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for job in input_file:
         model.add_job(data_structs, job)
     return model.jobs_size(data_structs)
 
-def load_skills(control):
+def load_skills(control, tamaño):
 
     data_structs = control["model"]
-    file = os.path.join(cf.data_dir, "small-skills.csv")
+
+    if tamaño == 1:
+       file = os.path.join(cf.data_dir, "10-por-skills.csv")
+    elif tamaño == 2:
+       file = os.path.join(cf.data_dir, "20-por-skills.csv")
+    elif tamaño == 3:
+       file = os.path.join(cf.data_dir, "30-por-skills.csv")
+    elif tamaño == 4:
+       file = os.path.join(cf.data_dir, "40-por-skills.csv")
+    elif tamaño == 5:
+       file = os.path.join(cf.data_dir, "50-por-skills.csv")
+    elif tamaño == 6:
+       file = os.path.join(cf.data_dir, "60-por-skills.csv")
+    elif tamaño == 7:
+       file = os.path.join(cf.data_dir, "70-por-skills.csv")
+    elif tamaño == 8:
+       file = os.path.join(cf.data_dir, "80-por-skills.csv")
+    elif tamaño == 9:
+       file = os.path.join(cf.data_dir, "90-por-skills.csv")
+    elif tamaño == 10:
+       file = os.path.join(cf.data_dir, "small-skills.csv")
+    elif tamaño == 11:
+       file = os.path.join(cf.data_dir, "medium-skills.csv")
+    elif tamaño == 12:
+       file = os.path.join(cf.data_dir, "large-skills.csv")
+
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for skills in input_file:
         model.add_skills(data_structs, skills)
     return model.skills_size(data_structs)
 
-def load_multilocations(control):
+def load_multilocations(control,tamaño):
+    
 
     data_structs = control["model"]
-    file = os.path.join(cf.data_dir, "small-multilocations.csv")
+    if tamaño == 1:
+       file = os.path.join(cf.data_dir, "10-por-multilocations.csv")
+    elif tamaño == 2:
+       file = os.path.join(cf.data_dir, "20-por-multilocations.csv")
+    elif tamaño == 3:
+       file = os.path.join(cf.data_dir, "30-por-multilocations.csv")
+    elif tamaño == 4:
+       file = os.path.join(cf.data_dir, "40-por-multilocations.csv")
+    elif tamaño == 5:
+       file = os.path.join(cf.data_dir, "50-por-multilocations.csv")
+    elif tamaño == 6:
+       file = os.path.join(cf.data_dir, "60-por-multilocations.csv")
+    elif tamaño == 7:
+       file = os.path.join(cf.data_dir, "70-por-multilocations.csv")
+    elif tamaño == 8:
+       file = os.path.join(cf.data_dir, "80-por-multilocations.csv")
+    elif tamaño == 9:
+       file = os.path.join(cf.data_dir, "90-por-multilocations.csv")
+    elif tamaño == 10:
+       file = os.path.join(cf.data_dir, "small-multilocations.csv")
+    elif tamaño == 11:
+       file = os.path.join(cf.data_dir, "medium-multilocations.csv")
+    elif tamaño == 12:
+       file = os.path.join(cf.data_dir, "large-multilocations.csv")
+
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for multilocations in input_file:
         model.add_multilocations(data_structs, multilocations)
     return model.multilocations_size(data_structs)
 
 
-def load_employments(control):
-
+def load_employments(control,tamaño):
+    
     data_structs = control["model"]
-    file = os.path.join(cf.data_dir, "small-employments_types.csv")
+    if tamaño == 1:
+       file = os.path.join(cf.data_dir, "10-poremployments_types.csv")
+    elif tamaño == 2:
+       file = os.path.join(cf.data_dir, "20-poremployments_types.csv")
+    elif tamaño == 3:
+       file = os.path.join(cf.data_dir, "30-poremployments_types.csv")
+    elif tamaño == 4:
+       file = os.path.join(cf.data_dir, "40-poremployments_types.csv")
+    elif tamaño == 5:
+       file = os.path.join(cf.data_dir, "50-poremployments_types.csv")
+    elif tamaño == 6:
+       file = os.path.join(cf.data_dir, "60-poremployments_types.csv")
+    elif tamaño == 7:
+       file = os.path.join(cf.data_dir, "70-poremployments_types.csv")
+    elif tamaño == 8:
+       file = os.path.join(cf.data_dir, "80-poremployments_types.csv")
+    elif tamaño == 9:
+       file = os.path.join(cf.data_dir, "90-poremployments_types.csv")
+    elif tamaño == 10:
+       file = os.path.join(cf.data_dir, "small-employments_types.csv")
+    elif tamaño == 11:
+       file = os.path.join(cf.data_dir, "medium-employments_types.csv")
+    elif tamaño == 12:
+       file = os.path.join(cf.data_dir, "large-employments_types.csv")
+
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for employments in input_file:
         model.add_employments(data_structs,employments)
     return model.employments_size(data_structs)
 
 
+def setSortAlgorithm(algo_opt):
+    """
+    Configura el algoritmo de ordenamiento que se va a utilizar en el
+    modelo y retorna un mensaje que informa al usuario.
+    """
+    
+    ans = model.selectSortAlgorithm(algo_opt)
+    
+    algorithm = ans[0]
+    model.sort_algorithm = algorithm
+    algoritm_msg = ans[1]
+    return algoritm_msg
 
 
+def getTime():
+    """
+    devuelve el instante tiempo de procesamiento en milisegundos
+    """
+    return float(time.perf_counter()*1000)
+
+
+def deltaTime(start, end):
+    """
+    devuelve la diferencia entre tiempos de procesamiento muestreados
+    """
+    elapsed = float(end - start)
+    return elapsed
+
+def sortJobs(control):
+    """
+    Ordena los libros por average_rating y toma el los tiempos en los
+    que se inició la ejecución del requerimiento y cuando finalizó
+    con getTime(). Finalmente calcula el tiempo que demoró la ejecución
+    de la función con deltaTime()
+    """
+    # TODO incluir resutlado en la toma de tiempos (Parte 1).
+    start_time = getTime()
+    sorted_jobs = model.sortOfertas(control["model"])
+    end_time = getTime()
+    delta_time = deltaTime(start_time, end_time)
+    return sorted_jobs, delta_time
 
 
 def setJobsSublist(control, size):

@@ -23,12 +23,10 @@
 import config as cf
 import sys
 import controller
-from DISClib.ADT import list as lt
-from DISClib.ADT import stack as st
-from DISClib.ADT import queue as qu
 assert cf
 #from tabulate import tabulate
 import traceback
+from Estructuras import Lista as lis
 
 """
 La vista se encarga de la interacción con el usuario
@@ -59,17 +57,18 @@ def print_menu():
     print("7- Ejecutar Requerimiento 6")
     print("8- Ejecutar Requerimiento 7")
     print("9- Ejecutar Requerimiento 8")
-    print("10- Elegir tipo de lista")
-    print("11- Seleccionar porcentaje de datos jobs y cantidad de muestra ")
+    print("10- Elegir tipo de lista y Seleccionar algoritmo de ordenamiento")
+    print("11- Seleccionar muestra de jobs")
+    print("12- Ordenar jobs alfabeticamente y por fecha de publicación")
     print("0- Salir")
 
 
-def carga_de_datos_reto_1(control):
+def carga_de_datos_reto_1(control,tamaño):
     """
     Carga los datos
     """
     #TODO: Realizar la carga de datos
-    jobs,skills,multilocations, employments = controller.load_data(control)                                                          
+    jobs,skills,multilocations, employments = controller.load_data(control,tamaño)                                                          
     datos = {"jobs":jobs, "skills": skills, "multilocations": multilocations, "employments": employments}                                                     
     return datos
     
@@ -163,10 +162,32 @@ def print_tipo_de_lista():
     tipo_lista = input("Si desea guardar la informacion en Array_list oprima 0. Si la quiere guardar en un linked_list oprima 1:")
     
 
+def printSortResults(sort_jobs, sample=3):
+
+    size = lis.size(sort_jobs) 
+    if size <= sample*2:
+       print("Las", size, "ofertas ordenadas son:")
+       for oferta in lis.iterator(sort_jobs): 
+           print('Nombre Compañia: ' + oferta["company_name"] +'Ciudad: ' +  oferta["city"] + 'Fecha publicación oferta: ' + oferta["published_at"])
+       print("Los", sample, "primeros libros ordenados son:")
+       i=1
+       while i <= sample:
+           oferta = lis.getElement(sort_jobs, i)
+           print('Nombre Compañia: ' + oferta["company_name"] + 'Ciudad: ' +  oferta["city"] + 'Fecha publicación oferta: ' + oferta["published_at"])
+           i += 1
+
+       print("Los", sample, "últimos libros ordenados son:")
+       i = size - sample + 1
+       while i <= size:
+            oferta = lis.getElement(sort_jobs, i) 
+            print('Nombre Compañia: ' + oferta["company_name"] + 'Ciudad: ' +  oferta["city"] + 'Fecha publicación oferta: ' + oferta["published_at"])
+            i += 1
+    
+
 # Se crea el controlador asociado a la vista
 control = new_controller()
 
-algo_str = """Seleccione el porcentaje de los datos que desea cargar:
+algo_str = """Seleccione un porcentaje o tamaño de archivo:
                 1. 10%
                  2. 20%
                  3. 30%
@@ -177,9 +198,20 @@ algo_str = """Seleccione el porcentaje de los datos que desea cargar:
                  8. 80%:
                  9. 90%
                  10. small
-                 11.medium 
-                 12.large: """
+                 11. medium 
+                 12. large: """
 # main del reto
+
+algo_st = """Seleccione el algoritmo de ordenamiento:
+                1. Selection Sort ||
+                 2. Insertion Sort ||
+                 3. Shell Sort ||
+                 4. Merge Sort ||
+                 5. Quick Sort ||
+                 6. Heap Sort ||
+                 7. Bogo Sort ||
+                 8. Custom Sort (Tim Sort o Patience Sort)):"""
+
 if __name__ == "__main__":
     """
     Menu principal
@@ -190,8 +222,10 @@ if __name__ == "__main__":
         print_menu()
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs) == 1:
+            tamaño = input(algo_str)
+            tamaño = int(tamaño)
             print("Cargando información de los archivos ....\n")
-            data = carga_de_datos_reto_1(control)
+            data = carga_de_datos_reto_1(control, tamaño)
             print(data)
         elif int(inputs) == 2:
             print_req_1(control)
@@ -218,16 +252,26 @@ if __name__ == "__main__":
             cargar_datos_lab(control)
 
         elif int(inputs) == 10:
-            print_tipo_de_lista()
+            #print_tipo_de_lista()
+
+            algo_opt = input(algo_st)
+            algo_opt = int(algo_opt)
+            algo_msg = controller.setSortAlgorithm(algo_opt)
+            print(algo_msg)
 
         elif int(inputs) == 11:
-            algo_opt = input(algo_str)
-            algo_opt = int(algo_opt)
-            
             size = input("Indique tamaño de la muestra: ")
             size = int(size)
             control = controller.setJobsSublist(control, size)
 
+        elif int(inputs) == 12:
+            # TODO completar modificaciones para el lab 5
+            print("Ordenando las Ofertas ...")
+            result = controller.sortJobs(control)
+            sortedJobs = result[0]
+            DeltaTime = f"{result[1]:.3f}"
+            print("Para", size, "elementos, el tiempo es:",str(DeltaTime), "[ms]")
+            printSortResults(sortedJobs)
 
         elif int(inputs) == 0:
             working = False

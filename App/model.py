@@ -27,6 +27,14 @@
 
 import config as cf
 from Estructuras import Lista as lis
+from Sorts import Shell as shs
+from Sorts import Heap as hes
+from Sorts import Tim as cus
+from Sorts import Merge as mes
+from Sorts import Bogo as bos
+from Sorts import Selection as ses
+from Sorts import Quick as qus
+from Sorts import Insertion as ins
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá
@@ -35,6 +43,7 @@ dos listas, una para los videos, otra para las categorias de los mismos.
 
 # Construccion de modelos
 
+sort_algorithm = None
 
 def new_data_structs():
     """
@@ -172,6 +181,74 @@ def req_8(data_structs):
     # TODO: Realizar el requerimiento 8
     pass
 
+def selectSortAlgorithm(algo_opt):
+    """selectSortAlgorithm permite seleccionar el algoritmo de ordenamiento
+    para la lista de pokemon.
+
+    Args:
+        algo_opt (int): opcion de algoritmo de ordenamiento, las opciones son:
+            1: Selection Sort
+            2: Insertion Sort
+            3: Shell Sort
+            4: Merge Sort
+            5: Quick Sort
+            6: Heap Sort
+            7: Bogo Sort
+            8: Custom Sort (timsort o bucketsort)
+
+    Returns:
+        list: sort_algorithm (sort) la instancia del ordenamiento y
+        algo_msg (str) el texto que describe la configuracion del ordenamiento
+    """
+    # TODO completar el ordenamiento personalizado para el lab 5
+    # TODO nuevo del lab 5
+    # respuestas por defecto
+    sort_algorithm = None
+    algo_msg = None
+
+    # selecciona el algoritmo de ordenamiento
+    # opcion 1: Selection Sort
+    if algo_opt == 1:
+        sort_algorithm = ses
+        algo_msg = "Seleccionó la configuración - Selection Sort"
+
+    # opcion 2: Insertion Sort
+    elif algo_opt == 2:
+        sort_algorithm = ins
+        algo_msg = "Seleccionó la configuración - Insertion Sort"
+
+    # opcion 3: Shell Sort
+    elif algo_opt == 3:
+        sort_algorithm = shs
+        algo_msg = "Seleccionó la configuración - Shell Sort"
+
+    # opcion 4: Merge Sort
+    elif algo_opt == 4:
+        sort_algorithm = mes
+        algo_msg = "Seleccionó la configuración - Merge Sort"
+
+    # opcion 5: Quick Sort
+    elif algo_opt == 5:
+        sort_algorithm = qus
+        algo_msg = "Seleccionó la configuración - Quick Sort"
+
+    # opcion 6: Heap Sort
+    elif algo_opt == 6:
+        sort_algorithm = hes
+        algo_msg = "Seleccionó la configuración - Heap Sort"
+
+    # opcion 7: Bogo Sort
+    elif algo_opt == 7:
+        sort_algorithm = bos
+        algo_msg = "Seleccionó la configuración - Bogo Sort"
+
+    # opcion 6: Custom Sort: timsort o bucketsort
+    # TODO completar el ordenamiento personalizado para el lab 5
+    elif algo_opt == 8:
+        sort_algorithm = cus
+        algo_msg = "Seleccionó la configuración - Custom Sort (Tim, Patience)"
+    # respuesta final: algoritmo de ordenamiento y texto de configuracion
+    return sort_algorithm, algo_msg
 
 def setJobsSublist(data_structs, size):
     """
@@ -206,7 +283,7 @@ def cmp_ofertas_by_empresa_y_fecha(oferta1,oferta2):
     if str(oferta1["company_name"]) < str(oferta2["company_name"]):
           booleano = True
     elif str(oferta1["company_name"]) == str(oferta2["company_name"]):
-        if float(oferta1["published_at"]) < float(oferta2["published_at"]):
+        if str(oferta1["published_at"]) < str(oferta2["published_at"]):
             booleano = True
         else: 
             booleano = False
@@ -217,57 +294,8 @@ def cmp_ofertas_by_empresa_y_fecha(oferta1,oferta2):
 
 def sortOfertas(data_structs):
     sorted_ofertas = data_structs["jobssublist"]
-    sorted_ofertas = sort(sorted_ofertas, cmp_ofertas_by_empresa_y_fecha)
+    sorted_ofertas = sort_algorithm.sort(sorted_ofertas, cmp_ofertas_by_empresa_y_fecha)
     return sorted_ofertas
-
-
-def sort(lista, sort_crit):
-    """
-    Función encargada de ordenar la lista con los datos
-    """
-    #TODO: Crear función de ordenamiento
-    size = lista["size"]
-    if size > 1:
-        mid = (size // 2)
-        """se divide la lista original, en dos partes, izquierda y derecha,
-        desde el punto mid."""
-        leftlist = lis.sub_list(lista, 1, mid)
-        rightlist = lis.sub_list(lista, mid+1, size - mid)
-
-        """se hace el llamado recursivo con la lista izquierda y derecha"""
-        sort(leftlist, sort_crit)
-        sort(rightlist, sort_crit)
-
-        """i recorre la lista izquierda, j la derecha y k la lista original"""
-        i = j = k = 1
-
-        leftelements = leftlist["size"]
-        rightelements = rightlist["size"]
-
-        while (i <= leftelements) and (j <= rightelements):
-            elemi = lis.getElement(leftlist, i)
-            elemj = lis.getElement(rightlist, j)
-            """compara y ordena los elementos"""
-            if sort_crit(elemj, elemi):   # caso estricto elemj < elemi
-                lis.changeInfo(lista, k, elemj)
-                j += 1
-            else:                            # caso elemi <= elemj
-                lis.changeInfo(lista, k, elemi)
-                i += 1
-            k += 1
-
-        """Agrega los elementos que no se comprararon y estan ordenados"""
-        while i <= leftelements:
-            lis.changeInfo(lista, k, lis.getElement(leftlist, i))
-            i += 1
-            k += 1
-
-        while j <= rightelements:
-            lis.changeInfo(lista, k, lis.getElement(rightlist, j))
-            j += 1
-            k += 1
-    return lista
-
 
 
 
