@@ -307,22 +307,11 @@ def sortOfertas(data_structs):
 
 
 
-def cmp_ofertas_by_empresa_y_fecha(job1, job2):
 
-    if job1["company_name"] < job2["company_name"]:
-        return True
-    elif job1["company_name"] > job2["company_name"]:
-        return False
-    else:
-        if job1["published_at"] < job2["published_at"]:
-            return True
-        else:
-            return False
 
 # ...
 
-def sort(data_structs):
-    lis.sort(data_structs["jobs"], lessfunction=cmp_ofertas_by_empresa_y_fecha)
+
 
 
 def estructura_datos(tipo_lista):
