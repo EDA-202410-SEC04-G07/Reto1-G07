@@ -173,6 +173,15 @@ def req_8(data_structs):
     pass
 
 
+def setJobsSublist(data_structs, size):
+    """
+    Crea una sublista de libros de tamaño size
+    """
+    # TODO nuevo del lab 5
+    jobs = data_structs["jobs"]
+    data_structs["jobssublist"] = lis.sub_list(jobs, 1, size)
+    return data_structs
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 def tipo_de_lista(type):
     if type == 0:
@@ -192,26 +201,73 @@ def compare(data_1, data_2):
 # Funciones de ordenamiento
 
 
-def sort_criteria(data_1, data_2):
-    """sortCriteria criterio de ordenamiento para las funciones de ordenamiento
+def cmp_ofertas_by_empresa_y_fecha(oferta1,oferta2):
+    
+    if str(oferta1["company_name"]) < str(oferta2["company_name"]):
+          booleano = True
+    elif str(oferta1["company_name"]) == str(oferta2["company_name"]):
+        if float(oferta1["published_at"]) < float(oferta2["published_at"]):
+            booleano = True
+        else: 
+            booleano = False
 
-    Args:
-        data1 (_type_): _description_
-        data2 (_type_): _description_
+    else: 
+        booleano = False 
+    return booleano 
 
-    Returns:
-        _type_: _description_
-    """
-    #TODO: Crear función comparadora para ordenar
-    pass
+def sortOfertas(data_structs):
+    sorted_ofertas = data_structs["jobs"]
+    sorted_ofertas = sort(sorted_ofertas, cmp_ofertas_by_empresa_y_fecha)
+    return sorted_ofertas
 
 
-def sort(data_structs):
+def sort(lista, sort_crit):
     """
     Función encargada de ordenar la lista con los datos
     """
     #TODO: Crear función de ordenamiento
-    pass
+    size = lista["size"]
+    if size > 1:
+        mid = (size // 2)
+        """se divide la lista original, en dos partes, izquierda y derecha,
+        desde el punto mid."""
+        leftlist = lis.sub_list(lista, 1, mid)
+        rightlist = lis.sub_list(lista, mid+1, size - mid)
+
+        """se hace el llamado recursivo con la lista izquierda y derecha"""
+        sort(leftlist, sort_crit)
+        sort(rightlist, sort_crit)
+
+        """i recorre la lista izquierda, j la derecha y k la lista original"""
+        i = j = k = 1
+
+        leftelements = leftlist["size"]
+        rightelements = rightlist["size"]
+
+        while (i <= leftelements) and (j <= rightelements):
+            elemi = lis.getElement(leftlist, i)
+            elemj = lis.getElement(rightlist, j)
+            """compara y ordena los elementos"""
+            if sort_crit(elemj, elemi):   # caso estricto elemj < elemi
+                lis.changeInfo(lista, k, elemj)
+                j += 1
+            else:                            # caso elemi <= elemj
+                lis.changeInfo(lista, k, elemi)
+                i += 1
+            k += 1
+
+        """Agrega los elementos que no se comprararon y estan ordenados"""
+        while i <= leftelements:
+            lis.changeInfo(lista, k, lis.getElement(leftlist, i))
+            i += 1
+            k += 1
+
+        while j <= rightelements:
+            lis.changeInfo(lista, k, lis.getElement(rightlist, j))
+            j += 1
+            k += 1
+    return lista
+
 
 
 
