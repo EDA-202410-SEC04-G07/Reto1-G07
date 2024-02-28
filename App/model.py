@@ -46,7 +46,7 @@ dos listas, una para los videos, otra para las categorias de los mismos.
 
 sort_algorithm = None
 
-def new_data_structs():
+def new_data_structs(tipo):
     """
     Inicializa las estructuras de datos del modelo. Las crea de
     manera vacía para posteriormente almacenar la información.
@@ -58,36 +58,36 @@ def new_data_structs():
                     "employments": None
                }
     
-    data_structs["jobs"] = lis.new_list()
-    data_structs["skills"] = lis.new_list()    
-    data_structs["multilocations"] = lis.new_list()
-    data_structs["employments"] = lis.new_list()                        
+    data_structs["jobs"] = lis.new_list(tipo)
+    data_structs["skills"] = lis.new_list(tipo)    
+    data_structs["multilocations"] = lis.new_list(tipo)
+    data_structs["employments"] = lis.new_list(tipo)                        
     return data_structs
 
 
 
 # Funciones para agregar informacion al modelo
 
-def add_job(data_structs, job):
-    lis.add_last(data_structs["jobs"], job)
+def add_job(data_structs, job, tipo):
+    lis.add_last(data_structs["jobs"], job, tipo)
 
 def jobs_size(data_structs):
     return lis.size(data_structs["jobs"])
 
-def add_skills(data_structs, skills):
-    lis.add_last(data_structs["skills"], skills)
+def add_skills(data_structs, skills,tipo):
+    lis.add_last(data_structs["skills"], skills,tipo)
 
 def skills_size(data_structs):
     return lis.size(data_structs["skills"])
 
-def add_multilocations(data_structs, multilocations):
-    lis.add_last(data_structs["multilocations"], multilocations)
+def add_multilocations(data_structs, multilocations,tipo):
+    lis.add_last(data_structs["multilocations"], multilocations,tipo)
 
 def multilocations_size(data_structs):
     return lis.size(data_structs["multilocations"])
 
-def add_employments(data_structs, employments):
-    lis.add_last(data_structs["employments"], employments)
+def add_employments(data_structs, employments,tipo):
+    lis.add_last(data_structs["employments"], employments,tipo)
 
 def employments_size(data_structs):
     return lis.size(data_structs["employments"])
@@ -251,13 +251,13 @@ def selectSortAlgorithm(algo_opt):
     # respuesta final: algoritmo de ordenamiento y texto de configuracion
     return sort_algorithm, algo_msg
 
-def setJobsSublist(data_structs, size):
+def setJobsSublist(data_structs, size, tipo):
     """
     Crea una sublista de libros de tamaño size
     """
     # TODO nuevo del lab 5
     jobs = data_structs["jobs"]
-    data_structs["jobssublist"] = lis.sub_list(jobs, 1, size)
+    data_structs["jobssublist"] = lis.sub_list(jobs, 1, size, tipo)
     return data_structs
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -287,9 +287,9 @@ def cmp_ofertas_by_empresa_y_fecha(oferta1,oferta2):
         booleano = False 
     return booleano 
 
-def sortOfertas(data_structs):
+def sortOfertas(data_structs, tipo):
     sorted_ofertas = data_structs["jobssublist"]
-    sorted_ofertas = sort_algorithm.sort(sorted_ofertas, cmp_ofertas_by_empresa_y_fecha)
+    sorted_ofertas = sort_algorithm.sort(sorted_ofertas, cmp_ofertas_by_empresa_y_fecha, tipo )
     return sorted_ofertas
 
 

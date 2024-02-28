@@ -14,12 +14,12 @@ def greater(heap, element1, element2):
     return False
 
 
-def exchange(heap, posa, posb):
+def exchange(heap, posa, posb, tipo):
     """
     Intercambia los elementos en las posiciones posa y posb del heap
     """
   
-    lis.exchange(heap['elements'], posa, posb)
+    lis.exchange(heap['elements'], posa, posb, tipo)
     
 def size(heap):
     """
@@ -37,7 +37,7 @@ def size(heap):
 
 
 
-def upHeap(heap, pos, end):
+def upHeap(heap, pos, end, tipo):
     """Mete el elemento en la posición correcta, compara los hijos y si hay uno mayor que el padre
     los intercambia
 
@@ -52,18 +52,18 @@ def upHeap(heap, pos, end):
     while ((2*pos <= end)):
             j = 2*pos
             if (j < end):
-                if not greater(heap, lis.getElement(heap['elements'], j),
-                           lis.getElement(heap['elements'], (j+1))):
+                if not greater(heap, lis.getElement(heap['elements'], j, tipo),
+                           lis.getElement(heap['elements'], (j+1), tipo)):
                     j += 1
-            if (greater(heap, lis.getElement(heap['elements'], pos),
-                            lis.getElement(heap['elements'], j))):
+            if (greater(heap, lis.getElement(heap['elements'], pos, tipo),
+                            lis.getElement(heap['elements'], j, tipo))):
                 break
-            exchange(heap, pos, j)
+            exchange(heap, pos, j, tipo)
             pos = j
    
 
 
-def maxPQ(heap, n):
+def maxPQ(heap, n, tipo):
     """Se asegura de que la raíz es el elemento más grande en el Heap
 
     Args:
@@ -74,12 +74,12 @@ def maxPQ(heap, n):
     """
  
     if n>0:
-        upHeap(heap, n, size(heap))
-        maxPQ(heap, n-1)          
+        upHeap(heap, n, size(heap), tipo)
+        maxPQ(heap, n-1, tipo)          
  
 
 
-def minPQ(heap, n):
+def minPQ(heap, n, tipo):
     """Intercambiamos la raíz con la última posición del árbol y colocamos la nueva raíz en la posición correcta
 
     Args:
@@ -90,11 +90,11 @@ def minPQ(heap, n):
     """
  
     if n>0:
-        exchange(heap, 1 , n)
-        upHeap(heap, 1, n-1)
-        minPQ(heap, n-1)          
+        exchange(heap, 1 , n, tipo)
+        upHeap(heap, 1, n-1, tipo)
+        minPQ(heap, n-1, tipo)          
     
-def sort(heap,sort_crit)->None:
+def sort(heap,sort_crit, tipo)->None:
     """Algoritmo de ordenamiento de Heapsort
 
     Args:
@@ -102,7 +102,8 @@ def sort(heap,sort_crit)->None:
     """
     
     middle=size(heap)//2
-    maxPQ(heap, middle)
-    minPQ(heap, size(heap))
+    maxPQ(heap, middle, tipo)
+    minPQ(heap, size(heap), tipo)
+    
         
 

@@ -36,12 +36,12 @@ operación solicitada
 """
 
 
-def new_controller():
+def new_controller(tipo):
     """
         Se crea una instancia del controlador
     """
     #TODO: Llamar la función del controlador donde se crean las estructuras de datos
-    control = controller.new_controller()
+    control = controller.new_controller(tipo)
     return control
     
 
@@ -63,12 +63,12 @@ def print_menu():
     print("0- Salir")
 
 
-def carga_de_datos_reto_1(control,tamaño):
+def carga_de_datos_reto_1(control,tamaño, tipo):
     """
     Carga los datos
     """
     #TODO: Realizar la carga de datos
-    jobs,skills,multilocations, employments = controller.load_data(control,tamaño)                                                          
+    jobs,skills,multilocations, employments = controller.load_data(control,tamaño,tipo)                                                          
     datos = {"jobs":jobs, "skills": skills, "multilocations": multilocations, "employments": employments}                                                     
     return datos
     
@@ -149,7 +149,7 @@ def print_req_8(control):
 
 def print_tipo_de_lista():
     tipo_lista = input("Si desea guardar la informacion en Array_list oprima 0. Si la quiere guardar en un linked_list oprima 1:")
-    
+    return tipo_lista
 
 def printSortResults(sort_jobs, sample=3):
 
@@ -173,8 +173,8 @@ def printSortResults(sort_jobs, sample=3):
             i += 1
     
 
-# Se crea el controlador asociado a la vista
-control = new_controller()
+
+
 
 algo_str = """Seleccione un porcentaje o tamaño de archivo:
                 1. 10%
@@ -213,9 +213,13 @@ if __name__ == "__main__":
         if int(inputs) == 1:
             tamaño = input(algo_str)
             tamaño = int(tamaño)
+
+            tipo = int(print_tipo_de_lista())
+            control = new_controller(tipo)      
             print("Cargando información de los archivos ....\n")
-            data = carga_de_datos_reto_1(control, tamaño)
+            data = carga_de_datos_reto_1(control, tamaño, tipo)
             print(data)
+
         elif int(inputs) == 2:
             print_req_1(control)
 
@@ -241,8 +245,6 @@ if __name__ == "__main__":
             print_req_8(control)
 
         elif int(inputs) == 10:
-            #print_tipo_de_lista()
-
             algo_opt = input(algo_st)
             algo_opt = int(algo_opt)
             algo_msg = controller.setSortAlgorithm(algo_opt)
@@ -251,12 +253,12 @@ if __name__ == "__main__":
         elif int(inputs) == 11:
             size = input("Indique tamaño de la muestra: ")
             size = int(size)
-            control = controller.setJobsSublist(control, size)
+            control = controller.setJobsSublist(control, size,tipo)
 
         elif int(inputs) == 12:
             # TODO completar modificaciones para el lab 5
             print("Ordenando las Ofertas ...")
-            result = controller.sortJobs(control)
+            result = controller.sortJobs(control, tipo)
             sortedJobs = result[0]
             DeltaTime = f"{result[1]:.3f}"
             print("Para", size, "elementos, el tiempo es:",str(DeltaTime), "[ms]")

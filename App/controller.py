@@ -33,7 +33,7 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 
-def new_controller():
+def new_controller(tipo):
     """
     Crea una instancia del modelo
     """
@@ -41,21 +41,21 @@ def new_controller():
     control = {
         "model": None
     }
-    control["model"] = model.new_data_structs()
+    control["model"] = model.new_data_structs(tipo)
     return control
 
 
 
 # Funciones para la carga de datos
 
-def load_data(control,tamaño):
-    jobs = load_jobs(control,tamaño)
-    skills = load_skills(control,tamaño)
-    multilocations= load_multilocations(control,tamaño)
-    employments = load_employments(control,tamaño)
+def load_data(control,tamaño,tipo):
+    jobs = load_jobs(control,tamaño,tipo)
+    skills = load_skills(control,tamaño,tipo)
+    multilocations= load_multilocations(control,tamaño,tipo)
+    employments = load_employments(control,tamaño,tipo)
     return jobs, skills, multilocations, employments
 
-def load_jobs(control,tamaño):
+def load_jobs(control,tamaño,tipo):
 
     data_structs = control["model"]
     if tamaño == 1:
@@ -85,10 +85,10 @@ def load_jobs(control,tamaño):
 
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for job in input_file:
-        model.add_job(data_structs, job)
+        model.add_job(data_structs, job,tipo)
     return model.jobs_size(data_structs)
 
-def load_skills(control, tamaño):
+def load_skills(control, tamaño,tipo):
 
     data_structs = control["model"]
 
@@ -119,10 +119,10 @@ def load_skills(control, tamaño):
 
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for skills in input_file:
-        model.add_skills(data_structs, skills)
+        model.add_skills(data_structs, skills,tipo)
     return model.skills_size(data_structs)
 
-def load_multilocations(control,tamaño):
+def load_multilocations(control,tamaño,tipo):
     
 
     data_structs = control["model"]
@@ -153,11 +153,11 @@ def load_multilocations(control,tamaño):
 
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for multilocations in input_file:
-        model.add_multilocations(data_structs, multilocations)
+        model.add_multilocations(data_structs, multilocations,tipo)
     return model.multilocations_size(data_structs)
 
 
-def load_employments(control,tamaño):
+def load_employments(control,tamaño,tipo):
     
     data_structs = control["model"]
     if tamaño == 1:
@@ -187,7 +187,7 @@ def load_employments(control,tamaño):
 
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for employments in input_file:
-        model.add_employments(data_structs,employments)
+        model.add_employments(data_structs,employments, tipo)
     return model.employments_size(data_structs)
 
 
@@ -219,7 +219,7 @@ def deltaTime(start, end):
     elapsed = float(end - start)
     return elapsed
 
-def sortJobs(control):
+def sortJobs(control, tipo):
     """
     Ordena los libros por average_rating y toma el los tiempos en los
     que se inició la ejecución del requerimiento y cuando finalizó
@@ -228,19 +228,19 @@ def sortJobs(control):
     """
     # TODO incluir resutlado en la toma de tiempos (Parte 1).
     start_time = getTime()
-    sorted_jobs = model.sortOfertas(control["model"])
+    sorted_jobs = model.sortOfertas(control["model"], tipo)
     end_time = getTime()
     delta_time = deltaTime(start_time, end_time)
     return sorted_jobs, delta_time
 
 
-def setJobsSublist(control, size):
+def setJobsSublist(control, size, tipo):
     """
     Retorna una sublista de libros
     """
     # TODO nuevo del lab 5 (Parte 2)
     data_structs = control["model"]
-    control["model"] = model.setJobsSublist(data_structs, size)
+    control["model"] = model.setJobsSublist(data_structs, size,tipo)
     return control
 # Funciones de ordenamiento
 
