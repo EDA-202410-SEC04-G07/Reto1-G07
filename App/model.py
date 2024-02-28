@@ -216,7 +216,7 @@ def cmp_ofertas_by_empresa_y_fecha(oferta1,oferta2):
     return booleano 
 
 def sortOfertas(data_structs):
-    sorted_ofertas = data_structs["jobs"]
+    sorted_ofertas = data_structs["jobssublist"]
     sorted_ofertas = sort(sorted_ofertas, cmp_ofertas_by_empresa_y_fecha)
     return sorted_ofertas
 

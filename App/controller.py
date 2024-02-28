@@ -90,6 +90,19 @@ def load_employments(control):
         model.add_employments(data_structs,employments)
     return model.employments_size(data_structs)
 
+
+
+
+
+
+def setJobsSublist(control, size):
+    """
+    Retorna una sublista de libros
+    """
+    # TODO nuevo del lab 5 (Parte 2)
+    data_structs = control["model"]
+    control["model"] = model.setJobsSublist(data_structs, size)
+    return control
 # Funciones de ordenamiento
 
 def sort(control):

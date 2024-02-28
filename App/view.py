@@ -165,6 +165,15 @@ def print_tipo_de_lista():
 # Se crea el controlador asociado a la vista
 control = new_controller()
 
+algo_str = """Seleccione tamaño del archivo a cargar:
+                1. Selection Sort ||
+                 2. Insertion Sort ||
+                 3. Shell Sort ||
+                 4. Merge Sort ||
+                 5. Quick Sort ||
+                 6. Heap Sort ||
+                 7. Bogo Sort ||
+                 8. Custom Sort (Tim Sort o Patience Sort)):"""
 # main del reto
 if __name__ == "__main__":
     """
@@ -205,6 +214,11 @@ if __name__ == "__main__":
 
         elif int(inputs) == 10:
             print_tipo_de_lista()
+
+        elif int(inputs) == 11:
+            size = input("Indique tamaño de la muestra: ")
+            size = int(size)
+            control = controller.setJobsSublist(control, size)
 
         elif int(inputs) == 0:
             working = False
