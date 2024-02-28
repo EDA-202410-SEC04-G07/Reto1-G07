@@ -140,21 +140,19 @@ def print_req_7(control):
 
 def print_req_8(control):
     """
-        Función que imprime la solución del Requerimiento 8 en consola
+    Función que imprime la solución del Requerimiento 8 en consola
     """
-    # TODO: Imprimir el resultado del requerimiento 8
-    pass
-
-
+    catalogo = control["model"]["catalogo"]
+    muestra = int(input("Ingrese el tamaño de la muestra: "))
+    sublista(catalogo, muestra)
 
 ##### LABORATORIO 5 #####
-
-
-
-def cargar_datos_lab():
-  tipo_lista = input("Tipo de lista (array/linked):")
-  catalogo = controller.init_data(tipo_lista)
-
+    
+def cargar_datos_lab(control):
+    tipo_lista = input("Ingrese el tipo de lista (ARRAY_LIST o LINKED_LIST): ")
+    tipo_lista = "ARRAY_LIST" if tipo_lista != "LINKED_LIST" else "LINKED_LIST"
+    catalogo = controller.iniciar_datos_lab(control, tipo_lista)
+    control["model"]["catalogo"] = catalogo
 
 
   

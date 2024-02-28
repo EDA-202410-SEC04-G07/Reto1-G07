@@ -19,6 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
+
 from Estructuras import Lista as lis
 import config as cf
 import model
@@ -56,7 +57,7 @@ def load_data(control):
 def load_jobs(control):
 
     data_structs = control["model"]
-    file = os.path.join(cf.data_dir, "small-jobs.csv")
+    file = os.path.join(cf.data_dir, "large-jobs.csv")
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for job in input_file:
         model.add_job(data_structs, job)
@@ -65,7 +66,7 @@ def load_jobs(control):
 def load_skills(control):
 
     data_structs = control["model"]
-    file = os.path.join(cf.data_dir, "small-skills.csv")
+    file = os.path.join(cf.data_dir, "large-skills.csv")
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for skills in input_file:
         model.add_skills(data_structs, skills)
@@ -74,7 +75,7 @@ def load_skills(control):
 def load_multilocations(control):
 
     data_structs = control["model"]
-    file = os.path.join(cf.data_dir, "small-multilocations.csv")
+    file = os.path.join(cf.data_dir, "large-multilocations.csv")
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for multilocations in input_file:
         model.add_multilocations(data_structs, multilocations)
@@ -84,7 +85,7 @@ def load_multilocations(control):
 def load_employments(control):
 
     data_structs = control["model"]
-    file = os.path.join(cf.data_dir, "small-employments_types.csv")
+    file = os.path.join(cf.data_dir, "large-employments_types.csv")
     input_file = csv.DictReader(open(file, encoding="utf-8"), delimiter=";")
     for employments in input_file:
         model.add_employments(data_structs,employments)
@@ -194,14 +195,19 @@ def delta_time(start, end):
 ##### LABORATORIO 5 #####
 
 
+def iniciar_datos_lab(control, tipo_lista):
+    catalogo = model.estructura_datos(tipo_lista)
+    model.load_data(catalogo)
+    model.sort(catalogo)
+    return catalogo
 
-def ordenar(catalogo):
-  lis.sort(catalogo['jobs'], lessfunction=model.comparar_ofertas)
 
-def iniciar_datos_lab(tipo_lista):
-  catalogo = model.estructura_datos(tipo_lista) 
-  
-  load_data(catalogo)
-  ordenar(catalogo)
-  
-  return catalogo
+def sublista(catalogo, muestra):
+    """
+    muestra dada por el usuario
+    """
+    for i in range(muestra):
+        oferta = lis.get_at(catalogo, i)
+        print(f"{i + 1}.- {oferta['company_name']} - {oferta['published_at']}")
+
+
