@@ -60,6 +60,7 @@ def print_menu():
     print("8- Ejecutar Requerimiento 7")
     print("9- Ejecutar Requerimiento 8")
     print("10- Elegir tipo de lista")
+    print("11- Seleccionar porcentaje de datos jobs y cantidad de muestra ")
     print("0- Salir")
 
 
@@ -163,6 +164,19 @@ def print_tipo_de_lista():
 # Se crea el controlador asociado a la vista
 control = new_controller()
 
+algo_str = """Seleccione el porcentaje de los datos que desea cargar:
+                1. 10%
+                 2. 20%
+                 3. 30%
+                 4. 40%
+                 5. 50%
+                 6. 60%
+                 7. 70%
+                 8. 80%:
+                 9. 90%
+                 10. small
+                 11.medium 
+                 12.large: """
 # main del reto
 if __name__ == "__main__":
     """
@@ -203,6 +217,15 @@ if __name__ == "__main__":
 
         elif int(inputs) == 10:
             print_tipo_de_lista()
+
+        elif int(inputs) == 11:
+            algo_opt = input(algo_str)
+            algo_opt = int(algo_opt)
+            
+            size = input("Indique tamaño de la muestra: ")
+            size = int(size)
+            control = controller.setJobsSublist(control, size)
+
 
         elif int(inputs) == 0:
             working = False
