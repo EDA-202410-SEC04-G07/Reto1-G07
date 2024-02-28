@@ -48,7 +48,7 @@ def new_controller(tipo):
 
 def print_menu():
     print("Bienvenido")
-    print("1- Cargar información")
+    print("1- Cargar información y elegir tipo de lista")
     print("2- Ejecutar Requerimiento 1")
     print("3- Ejecutar Requerimiento 2")
     print("4- Ejecutar Requerimiento 3")
@@ -57,7 +57,7 @@ def print_menu():
     print("7- Ejecutar Requerimiento 6")
     print("8- Ejecutar Requerimiento 7")
     print("9- Ejecutar Requerimiento 8")
-    print("10- Elegir tipo de lista y Seleccionar algoritmo de ordenamiento")
+    print("10- Seleccionar algoritmo de ordenamiento")
     print("11- Seleccionar muestra de jobs")
     print("12- Ordenar jobs alfabeticamente y por fecha de publicación")
     print("0- Salir")
