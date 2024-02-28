@@ -142,20 +142,11 @@ def print_req_8(control):
     """
     Función que imprime la solución del Requerimiento 8 en consola
     """
-    catalogo = control["model"]["catalogo"]
-    muestra = int(input("Ingrese el tamaño de la muestra: "))
-    sublista(catalogo, muestra)
+    pass
 
 ##### LABORATORIO 5 #####
     
-def cargar_datos_lab(control):
-    tipo_lista = input("Ingrese el tipo de lista (ARRAY_LIST o LINKED_LIST): ")
-    tipo_lista = "ARRAY_LIST" if tipo_lista != "LINKED_LIST" else "LINKED_LIST"
-    catalogo = controller.iniciar_datos_lab(control, tipo_lista)
-    control["model"]["catalogo"] = catalogo
 
-
-  
 def print_tipo_de_lista():
     tipo_lista = input("Si desea guardar la informacion en Array_list oprima 0. Si la quiere guardar en un linked_list oprima 1:")
     
@@ -277,3 +268,10 @@ if __name__ == "__main__":
         else:
             print("Opción errónea, vuelva a elegir.\n")
     sys.exit(0)
+
+
+def cargar_datos_lab(control):
+    tipo_lista = input("Ingrese el tipo de lista (ARRAY_LIST o LINKED_LIST): ")
+    tipo_lista = "ARRAY_LIST" if tipo_lista != "LINKED_LIST" else "LINKED_LIST"
+    catalogo = controller.iniciar_datos_lab(control, tipo_lista)
+    control["model"]["catalogo"] = catalogo

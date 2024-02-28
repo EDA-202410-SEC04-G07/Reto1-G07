@@ -325,22 +325,6 @@ def req_8(control):
     pass
 
 
-# Funciones para medir tiempos de ejecucion
-
-def get_time():
-    """
-    devuelve el instante tiempo de procesamiento en milisegundos
-    """
-    return float(time.perf_counter()*1000)
-
-
-def delta_time(start, end):
-    """
-    devuelve la diferencia entre tiempos de procesamiento muestreados
-    """
-    elapsed = float(end - start)
-    return elapsed
-
 
 
 ##### LABORATORIO 5 #####
@@ -352,13 +336,5 @@ def iniciar_datos_lab(control, tipo_lista):
     model.sort(catalogo)
     return catalogo
 
-
-def sublista(catalogo, muestra):
-    """
-    muestra dada por el usuario
-    """
-    for i in range(muestra):
-        oferta = lis.get_at(catalogo, i)
-        print(f"{i + 1}.- {oferta['company_name']} - {oferta['published_at']}")
 
 

@@ -306,14 +306,6 @@ def sortOfertas(data_structs):
 
 
 
-
-
-
-# ...
-
-
-
-
 def estructura_datos(tipo_lista):
     """
     Crea una estructura de datos en memoria para el catálogo de acuerdo al tipo seleccionado.
