@@ -238,7 +238,7 @@ if __name__ == "__main__":
             print_req_7(control)
 
         elif int(inputs) == 9:
-            cargar_datos_lab(control)
+            print_req_8(control)
 
         elif int(inputs) == 10:
             #print_tipo_de_lista()
@@ -270,8 +270,3 @@ if __name__ == "__main__":
     sys.exit(0)
 
 
-def cargar_datos_lab(control):
-    tipo_lista = input("Ingrese el tipo de lista (ARRAY_LIST o LINKED_LIST): ")
-    tipo_lista = "ARRAY_LIST" if tipo_lista != "LINKED_LIST" else "LINKED_LIST"
-    catalogo = controller.iniciar_datos_lab(control, tipo_lista)
-    control["model"]["catalogo"] = catalogo

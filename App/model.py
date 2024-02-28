@@ -261,12 +261,6 @@ def setJobsSublist(data_structs, size):
     return data_structs
 
 # Funciones utilizadas para comparar elementos dentro de una lista
-def tipo_de_lista(type):
-    if type == 0:
-        return new_data_structs()
-        
-    else: 
-        return new_data_structs_linked()
 
 
 def compare(data_1, data_2):
@@ -305,28 +299,8 @@ def sortOfertas(data_structs):
 
 
 
-
-def estructura_datos(tipo_lista):
-    """
-    Crea una estructura de datos en memoria para el catálogo de acuerdo al tipo seleccionado.
-    """
-    if tipo_lista == "ARRAY_LIST":
-        return {"jobs": lis.new_list(), "skills": lis.new_list(), "multilocations": lis.new_list(), "employments": lis.new_list()}
-    elif tipo_lista == "LINKED_LIST":
-        return {"jobs": LinkedList(), "skills": LinkedList(), "multilocations": LinkedList(), "employments": LinkedList()}
     
 
-def load_data(catalogo):
-    """
-    Carga los datos de las ofertas de trabajo en la estructura de datos.
-    """
-    with open("large-jobs.csv", "r") as file:
-        data = large-jobs.load(file)
-        for job in data:
-            catalogo["jobs"].append(job)
-            catalogo["skills"].append(job["skills"])
-            catalogo["multilocations"].append(job["multilocations"])
-            catalogo["employments"].append(job["employments"])
 
 
 

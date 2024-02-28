@@ -330,11 +330,6 @@ def req_8(control):
 ##### LABORATORIO 5 #####
 
 
-def iniciar_datos_lab(control, tipo_lista):
-    catalogo = model.estructura_datos(tipo_lista)
-    model.load_data(catalogo)
-    model.sort(catalogo)
-    return catalogo
 
 
 
