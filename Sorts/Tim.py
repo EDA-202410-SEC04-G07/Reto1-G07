@@ -21,56 +21,63 @@ def calcMinRun(n):
   
 # This function sorts array from left index to 
 # to right index which is of size atmost RUN 
-def insertionSort(arr, sort_crit, left, right, tipo): 
-    for i in range(left + 1, right + 1): 
-        j = i 
-        while j > left and sort_crit(lis.getElement(arr, j, tipo),lis.getElement(arr, j-1,tipo)): 
-            lis.exchange(arr, j,j-1, tipo)
-            j -= 1
+def insertionSort(arr, sort_crit, left, right, tipo):
+    size = lis.size(arr) 
+    while left <= size:
+        right =left
+        while (right > 1) and (sort_crit(lis.getElement(arr, right,tipo),lis.getElement(arr, right-1,tipo))): 
+            lis.exchange(arr, right,right-1,tipo)
+            right -= 1
+        left += 1
+    return arr
   
 # Merge function merges the sorted runs 
 def merge(arr, sort_crit,  l, m, r, tipo): 
   
     # original array is broken in two parts 
     # left and right array 
-    len1, len2 = m - l + 1, r - m 
-    left, right = [], [] 
-    for i in range(0, len1): 
-        left.append(lis.getElement(arr,l + i, tipo))
-    for i in range(0, len2): 
-        right.append(lis.getElement(arr,m + 1 + i, tipo))
+    leftlist = lis.sub_list(arr,l,m,tipo)
+    rightlist = lis.sub_list(arr,m+1,r-m,tipo)
+
+    sort(leftlist, sort_crit, tipo)
+    sort(rightlist, sort_crit, tipo)
   
-    i, j, k = 0, 0, l 
-  
+    i = j = k = 1
+
+    leftelements = lis.size(leftlist)
+    rightelements = lis.size(rightlist)
     # after comparing, we merge those two array 
     # in larger sub array 
-    while i < len1 and j < len2: 
-        if sort_crit(left[i],right[j]): 
-            lis.changeInfo(arr,k,left[i],tipo)
-            i += 1
+    while (i <= leftelements)  and (j < rightelements): 
+        elemi = lis.getElement(leftlist,i, tipo)
+        elemj = lis.getElement(rightlist, j, tipo)
+
+        if sort_crit(elemj,elemi): 
+            lis.changeInfo(arr,k,elemj, tipo)
+            j += 1
   
         else: 
-            lis.changeInfo(arr,k,right[j], tipo)
-            j += 1
+            lis.changeInfo(arr,k,elemi, tipo)
+            i += 1
   
         k += 1
   
     # Copy remaining elements of left, if any 
-    while i < len1: 
-        lis.changeInfo(arr,k,left[i], tipo) 
-        k += 1
+    while i <= leftelements: 
+        lis.changeInfo(arr,k,lis.getElement(leftlist, i, tipo), tipo) 
         i += 1
+        k += 1
   
     # Copy remaining element of right, if any 
-    while j < len2: 
-        lis.changeInfo(arr,k,right[j], tipo)
-        k += 1
+    while j <= rightelements: 
+        lis.changeInfo(arr,k,lis.getElement(rightlist, j, tipo), tipo) 
         j += 1
-  
+        k += 1
+    return arr
   
 # Iterative Timsort function to sort the 
 # array[0...n-1] (similar to merge sort) 
-def sort(arr,sort_crit,tipo): 
+def sort(arr,sort_crit, tipo): 
     n = len(arr) 
     minRun = calcMinRun(n) 
   
