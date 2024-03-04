@@ -97,7 +97,7 @@ def print_req_1(control, tipo):
     i = 1
     while i <= tamaño and i <= num_ofertas:
             oferta = respuesta[i-1]
-            print( str(i) + 'Fecha Publicacion: ' + oferta["company_name"] + 'Titulo oferta: ' +  oferta["city"] + 'Nombre Empresa: ' + oferta["published_at"] + 'Nvel experiencia: ' + oferta["published_at"] + 'Pais empresa: ' + oferta["published_at"] + 'Ciudad Empresa: ' + oferta["published_at"] + 'Tamaño Empresa: ' + oferta["published_at"] + 'Tipo de Ubicación: ' + oferta["published_at"] + 'Disponible contratar ucranianos: ' + oferta["published_at"])
+            print( str(i) + " . " + 'Fecha Publicacion: ' + oferta["published_at"] + " , " + 'Titulo oferta: ' +  oferta["title"] + " , " + 'Nombre Empresa: ' + oferta["company_name"]+ " , "  + 'Nivel experiencia: ' + oferta["experience_level"] + " , " + 'Pais empresa: ' + oferta["country_code"] + " , " + 'Ciudad Empresa: ' + oferta["city"] + " , " + 'Tamaño Empresa: ' + oferta["company_size"]+ " , "  + 'Tipo de Ubicación: ' + oferta["workplace_type"]+ " , "  + 'Disponible contratar ucranianos: ' + oferta["open_to_hire_ukrainians"])
             i += 1
 
 
