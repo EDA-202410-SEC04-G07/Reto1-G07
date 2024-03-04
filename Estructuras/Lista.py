@@ -1,7 +1,7 @@
 def new_list(tipo):
     if tipo == 0:
        lista = {
-        "elements": [],#{value:None, next:None}
+        "elements": [],
         "size": 0,
         'type': 'ARRAY_LIST',
          }

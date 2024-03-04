@@ -82,12 +82,24 @@ def print_data(control, id):
     
     pass
 
-def print_req_1(control):
+def print_req_1(control, tipo):
     """
         Función que imprime la solución del Requerimiento 1 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 1
-    pass
+    print("Ordenando las Ofertas ...")
+    cod_pais =   input("Ingrese el codigo de pais para filtrar la informacion:")
+    niv_experticia =  input("Ingrese el nivel de experticia para filtrar la informacion:")
+    num_ofertas = int(input("Ingrese el numero de ofertas que quiere mostrar:"))
+    respuesta, tamaño = controller.req_1(control, num_ofertas, cod_pais, niv_experticia, tipo)
+    
+    print("El total de ofertas de trabajo ofrecidas según la condicion " + niv_experticia + " es de " + str(tamaño))
+    i = 1
+    while i <= tamaño and i <= num_ofertas:
+            oferta = respuesta[i-1]
+            print( str(i) + 'Fecha Publicacion: ' + oferta["company_name"] + 'Titulo oferta: ' +  oferta["city"] + 'Nombre Empresa: ' + oferta["published_at"] + 'Nvel experiencia: ' + oferta["published_at"] + 'Pais empresa: ' + oferta["published_at"] + 'Ciudad Empresa: ' + oferta["published_at"] + 'Tamaño Empresa: ' + oferta["published_at"] + 'Tipo de Ubicación: ' + oferta["published_at"] + 'Disponible contratar ucranianos: ' + oferta["published_at"])
+            i += 1
+
 
 
 def print_req_2(control):
@@ -221,7 +233,7 @@ if __name__ == "__main__":
             print(data)
 
         elif int(inputs) == 2:
-            print_req_1(control)
+            print_req_1(control, tipo)
 
         elif int(inputs) == 3:
             print_req_2(control)
@@ -262,7 +274,7 @@ if __name__ == "__main__":
             sortedJobs = result[0]
             DeltaTime = f"{result[1]:.3f}"
             print("Para", size, "elementos, el tiempo es:",str(DeltaTime), "[ms]")
-            printSortResults(sortedJobs)
+            
 
         elif int(inputs) == 0:
             working = False

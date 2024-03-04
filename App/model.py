@@ -119,12 +119,19 @@ def data_size(data_structs):
     pass
 
 
-def req_1(data_structs):
+def req_1(data_structs, num_ofertas, cod_pais, niv_experticia, tipo):
     """
     Función que soluciona el requerimiento 1
     """
-    # TODO: Realizar el requerimiento 1
-    pass
+    lista = lis.new_list(tipo)
+
+    for i in range(lis.size(data_structs["jobssublist"])):
+        if (data_structs["jobssublist"]["elements"][i]["experience_level"] == niv_experticia) and (data_structs["jobssublist"]["elements"][i]["country_code"] == cod_pais):
+                 lis.add_last(lista, data_structs["jobssublist"]["elements"][i],tipo)
+
+    tamaño = lis.size(lista)
+    respuesta = lista["elements"][0:num_ofertas-1]
+    return respuesta, tamaño
 
 
 def req_2(data_structs):
