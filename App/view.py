@@ -134,19 +134,28 @@ def print_req_5(control, tipo):
     city = input("Ingrese una ciudad de busqueda:")
     fecha_inicial = input("Ingrese la fecha inicial de busqueda (formato %Y-%m-%d):")
     fecha_final =  input("Ingrese la fecha final de busqueda (formato %Y-%m-%d):")
-    total_ofertas, dato_empresas, conteo_empresa, max_empresa = controller.req_5(control,city, fecha_inicial, fecha_final, tipo)
-    print("El total de ofertas de trabajo publicadas en el periodo buscado es de: " + total_ofertas + " ofertas")
-    print("El total de empresas que publicaron por lo menos una oferta en la ciudad de consulta es de: " + dato_empresas + "empresas")
-    print("La empresa con el mayor numero de ofertas en el periodo fue: " + max_empresa + " con " + conteo_empresa + " ofertas")
-    
+    total_ofertas, dato_empresas, conteo_empresa, max_empresa, conteo_min, min_empresa, lista_ordenada = controller.req_5(control,city, fecha_inicial, fecha_final, tipo)
+    print()
+    print("El total de ofertas de trabajo publicadas en el periodo buscado es de: " + str(total_ofertas) + " ofertas")
+    print("El total de empresas que publicaron por lo menos una oferta en la ciudad de consulta es de: " + str(dato_empresas) + " empresas")
+    print("La empresa con el mayor numero de ofertas en el periodo fue: " + str(max_empresa) + " con " + str(conteo_empresa) + " ofertas")
+    print("La empresa con el menor numero de ofertas en el periodo fue: " + str(min_empresa) + " con " + str(conteo_min) + " oferta/s")
+    print()
+    print("Listado de ofertas:")
+    i = 1
+    while i <= total_ofertas:
+            oferta = lista_ordenada["elements"][i-1]
+            print( str(i) + " . " + 'Fecha Publicacion: ' + oferta["published_at"] + " , " + 'Titulo oferta: ' +  oferta["title"] + " , " + 'Nombre Empresa: ' + oferta["company_name"]+  " , " +'Tipo de Ubicación: ' + oferta["workplace_type"] + " , " +'Tamaño Empresa: ' + oferta["company_size"])
+            i += 1
 
 
-def print_req_6(control):
+def print_req_6(control,tipo):
     """
         Función que imprime la solución del Requerimiento 6 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 6
     pass
+   
 
 
 def print_req_7(control):
@@ -255,7 +264,7 @@ if __name__ == "__main__":
             print_req_5(control, tipo)
 
         elif int(inputs) == 7:
-            print_req_6(control)
+            print_req_6(control,tipo)
 
         elif int(inputs) == 8:
             print_req_7(control)

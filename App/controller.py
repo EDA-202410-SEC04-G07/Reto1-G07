@@ -319,16 +319,17 @@ def req_5(control,city, fecha_inicial, fecha_final, tipo):
     Retorna el resultado del requerimiento 5
     """
     # TODO: Modificar el requerimiento 5
-    total_ofertas, dato_empresas, conteo_empresa, max_empresa = model.req_5(control["model"],city, fecha_inicial, fecha_final, tipo)
-    return total_ofertas, dato_empresas, conteo_empresa, max_empresa
+    total_ofertas, dato_empresas, conteo_empresa, max_empresa,conteo_min, min_empresa, lista_ordenada = model.req_5(control["model"],city, fecha_inicial, fecha_final, tipo)
+    return total_ofertas, dato_empresas, conteo_empresa, max_empresa, conteo_min, min_empresa, lista_ordenada
     
 
-def req_6(control):
+def req_6(control, city, fecha_inicial, fecha_final, tipo):
     """
     Retorna el resultado del requerimiento 6
     """
     # TODO: Modificar el requerimiento 6
     pass
+    
 
 
 def req_7(control):

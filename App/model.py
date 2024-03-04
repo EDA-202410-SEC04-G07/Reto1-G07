@@ -138,6 +138,11 @@ def req_1(data_structs, num_ofertas, cod_pais, niv_experticia, tipo):
 def cmp_ofertas_by_fecha(oferta1, oferta2):
     if str(oferta1["published_at"]) < str(oferta2["published_at"]):
             booleano = True
+    elif str(oferta1["published_at"]) == str(oferta2["published_at"]):
+         if str(oferta1["company_name"]) < str(oferta2["company_name"]):
+              booleano = True
+         else:
+              booleano = False     
     else: 
             booleano = False
     return booleano
@@ -187,39 +192,51 @@ def req_5(data_structs, city, fecha_inicial, fecha_final, tipo):
     Función que soluciona el requerimiento 5
     """
     # TODO: Realizar el requerimiento 5
+    data_structs = sort_jobs_fecha(data_structs, tipo)
     lista = lis.new_list(tipo)
 
     for i in range(lis.size(data_structs)):
         if (data_structs["elements"][i]["city"] == city) and (fecha_inicial<=data_structs["elements"][i]["published_at"] <= fecha_final):
                  lis.add_last(lista, data_structs["elements"][i],tipo)
 
+    lista_ordenada = lista 
     total_ofertas = lis.size(lista)
     
     empresas = lis.new_list(tipo)
+    total_empresas = lis.new_list(tipo)
     for m in range(lis.size(lista)):
         if lista["elements"][m]["company_name"] not in empresas["elements"]:
                  lis.add_last(empresas, lista["elements"][m]["company_name"],tipo)
-
+        lis.add_last(total_empresas, lista["elements"][m]["company_name"],tipo)
     dato_empresas = lis.size(empresas)
-
-    frecuencia = {}
-    for l in empresas["elements"]:
-        if l in empresas["elements"]:
+    
+    frecuencia = {} 
+    mayor = lis.new_list(tipo)
+    for l in total_empresas["elements"]:
+        if l in mayor["elements"]:
             frecuencia[l] += 1
         else: 
             frecuencia[l] = 1
-
+            lis.add_last(mayor, l ,tipo)
+    
     max_empresa = None
     conteo_empresa = 0
+    min_empresa = None 
+    conteo_min = 10000000000000000
     for l, frecuencia in frecuencia.items():
       if frecuencia > conteo_empresa:
         conteo_empresa = frecuencia
         max_empresa = l 
+      if frecuencia < conteo_min:
+           conteo_min = frecuencia 
+           min_empresa = l
     
-    return total_ofertas, dato_empresas, conteo_empresa, max_empresa
+    return total_ofertas, dato_empresas, conteo_empresa, max_empresa, conteo_min, min_empresa, lista_ordenada
 
 
 
+#def total_empresas(data_structs, city, fecha_inicial, fecha_final, tipo):
+   
 
 def req_6(data_structs):
     """
@@ -233,6 +250,7 @@ def req_7(data_structs):
     """
     Función que soluciona el requerimiento 7
     """
+
     # TODO: Realizar el requerimiento 7
     pass
 
