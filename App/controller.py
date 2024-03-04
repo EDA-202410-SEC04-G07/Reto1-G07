@@ -261,13 +261,19 @@ def get_data(control, id):
     #TODO: Llamar la función del modelo para obtener un dato
     pass
 
+##### REQUERIMIENTO 1 #####
 
-def req_1(control):
-    """
-    Retorna el resultado del requerimiento 1
-    """
-    # TODO: Modificar el requerimiento 1
-    pass
+def controller_jobs_by_fecha(data_structs):
+    
+    sorted_jobs = model.sort_jobs_fecha(data_structs)
+    if sorted_jobs:
+        print_jobs(sorted_jobs)
+
+def controller_jobs_pais_nivel_experiencia(data_structs, country_code, expertise_level):
+    
+    filtered_jobs = model.jobs_pais_nivel_experiencia(data_structs, country_code, expertise_level)
+    print_jobs(filtered_jobs)
+
 
 
 def req_2(control):
@@ -278,12 +284,18 @@ def req_2(control):
     pass
 
 
-def req_3(control):
-    """
-    Retorna el resultado del requerimiento 3
-    """
-    # TODO: Modificar el requerimiento 3
-    pass
+##### REQUERIMIENTO 3 #####
+def controlador_jobs_compania_fecha(data_structs, company_name, start_date, end_date):
+    
+    filtered_jobs = model.filter_jobs_compania_fecha(data_structs, company_name, start_date, end_date)
+    job_stats = model.contar_jobs_experiencia(filtered_jobs)
+    sorted_jobs = model.sort_jobs_compania_fecha(filtered_jobs)
+    view.print_job_req3(filtered_jobs)
+    #
+    #
+    #
+    #
+    #
 
 
 def req_4(control):

@@ -118,13 +118,20 @@ def data_size(data_structs):
     #TODO: Crear la función para obtener el tamaño de una lista
     pass
 
+##### REQUERIMIENTO 1 #####
 
-def req_1(data_structs):
-    """
-    Función que soluciona el requerimiento 1
-    """
-    # TODO: Realizar el requerimiento 1
-    pass
+def cmp_ofertas_by_fecha(oferta1, oferta2):
+    return datetime.strptime(oferta2["published_at"], "%Y-%m-%d") - datetime.strptime(oferta1["published_at"], "%Y-%m-%d")
+
+def sort_jobs_fecha(data_structs):
+    return shs.sort(data_structs["jobssublist"], cmp_ofertas_by_fecha) if data_structs["jobssublist"] else None
+
+def jobs_pais_nivel_experiencia(data_structs, country_code, expertise_level):
+    filtered_jobs = []
+    for job in data_structs["jobs"]:
+        if job["country_code"] == country_code and job["expertise_level"] == expertise_level:
+            filtered_jobs.append(job)
+    return filtered_jobs
 
 
 def req_2(data_structs):
@@ -135,12 +142,21 @@ def req_2(data_structs):
     pass
 
 
-def req_3(data_structs):
-    """
-    Función que soluciona el requerimiento 3
-    """
-    # TODO: Realizar el requerimiento 3
-    pass
+##### REQUERIMIENTO 3 #####
+
+def jobs_compania_fecha(data_structs, company_name, start_date, end_date):
+    
+    jobs_req3 = [job for job in data_structs["jobs"] if job["company_name"] == company_name and
+                     start_date <= datetime.strptime(job["published_at"], "%Y-%m-%d") <= end_date]
+    return jobs_req3
+
+def contar_jobs_experiencia(jobs):
+    
+    junior = sum(1 for job in jobs if job["expertise_level"] == "junior")
+    mid = sum(1 for job in jobs if job["expertise_level"] == "mid")
+    senior = sum(1 for job in jobs if job["expertise_level"] == "senior")
+
+    return junior, mid, senior
 
 
 def req_4(data_structs):
