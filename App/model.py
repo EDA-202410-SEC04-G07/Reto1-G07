@@ -132,7 +132,7 @@ def req_1(data_structs, num_ofertas, cod_pais, niv_experticia, tipo):
                  lis.add_last(lista, data_structs["elements"][i],tipo)
 
     tamaño = lis.size(lista)
-    respuesta = lista["elements"][0:num_ofertas-1]
+    respuesta = lista["elements"][:num_ofertas]
     return respuesta, tamaño
 
 def cmp_ofertas_by_fecha(oferta1, oferta2):
@@ -182,12 +182,43 @@ def req_4(data_structs):
     pass
 
 
-def req_5(data_structs):
+def req_5(data_structs, city, fecha_inicial, fecha_final, tipo):
     """
     Función que soluciona el requerimiento 5
     """
     # TODO: Realizar el requerimiento 5
-    pass
+    lista = lis.new_list(tipo)
+
+    for i in range(lis.size(data_structs)):
+        if (data_structs["elements"][i]["city"] == city) and (fecha_inicial<=data_structs["elements"][i]["published_at"] <= fecha_final):
+                 lis.add_last(lista, data_structs["elements"][i],tipo)
+
+    total_ofertas = lis.size(lista)
+    
+    empresas = lis.new_list(tipo)
+    for m in range(lis.size(lista)):
+        if lista["elements"][m]["company_name"] not in empresas["elements"]:
+                 lis.add_last(empresas, lista["elements"][m]["company_name"],tipo)
+
+    dato_empresas = lis.size(empresas)
+
+    frecuencia = {}
+    for l in empresas["elements"]:
+        if l in empresas["elements"]:
+            frecuencia[l] += 1
+        else: 
+            frecuencia[l] = 1
+
+    max_empresa = None
+    conteo_empresa = 0
+    for l, frecuencia in frecuencia.items():
+      if frecuencia > conteo_empresa:
+        conteo_empresa = frecuencia
+        max_empresa = l 
+    
+    return total_ofertas, dato_empresas, conteo_empresa, max_empresa
+
+
 
 
 def req_6(data_structs):

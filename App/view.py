@@ -126,12 +126,19 @@ def print_req_4(control):
     pass
 
 
-def print_req_5(control):
+def print_req_5(control, tipo):
     """
         Función que imprime la solución del Requerimiento 5 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 5
-    pass
+    city = input("Ingrese una ciudad de busqueda:")
+    fecha_inicial = input("Ingrese la fecha inicial de busqueda (formato %Y-%m-%d):")
+    fecha_final =  input("Ingrese la fecha final de busqueda (formato %Y-%m-%d):")
+    total_ofertas, dato_empresas, conteo_empresa, max_empresa = controller.req_5(control,city, fecha_inicial, fecha_final, tipo)
+    print("El total de ofertas de trabajo publicadas en el periodo buscado es de: " + total_ofertas + " ofertas")
+    print("El total de empresas que publicaron por lo menos una oferta en la ciudad de consulta es de: " + dato_empresas + "empresas")
+    print("La empresa con el mayor numero de ofertas en el periodo fue: " + max_empresa + " con " + conteo_empresa + " ofertas")
+    
 
 
 def print_req_6(control):
@@ -245,7 +252,7 @@ if __name__ == "__main__":
             print_req_4(control)
 
         elif int(inputs) == 6:
-            print_req_5(control)
+            print_req_5(control, tipo)
 
         elif int(inputs) == 7:
             print_req_6(control)

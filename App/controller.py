@@ -314,12 +314,14 @@ def req_4(control):
     pass
 
 
-def req_5(control):
+def req_5(control,city, fecha_inicial, fecha_final, tipo):
     """
     Retorna el resultado del requerimiento 5
     """
     # TODO: Modificar el requerimiento 5
-    pass
+    total_ofertas, dato_empresas, conteo_empresa, max_empresa = model.req_5(control["model"],city, fecha_inicial, fecha_final, tipo)
+    return total_ofertas, dato_empresas, conteo_empresa, max_empresa
+    
 
 def req_6(control):
     """
