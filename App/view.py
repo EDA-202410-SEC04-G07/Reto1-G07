@@ -150,12 +150,73 @@ def print_req_5(control, tipo):
             i += 1
 
 
-def print_req_6(control,tipo):
-    """
-        Función que imprime la solución del Requerimiento 6 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 6
-    pass
+def print_req_6(control,tipo
+                ):
+    def get_max_count(city_count_tuple):
+        city, data = city_count_tuple
+        return data["count"]
+
+    def get_min_count(city_count_tuple):
+        city, data = city_count_tuple
+        return data["count"]
+
+    def get_count(city_count_tuple):
+        city, data = city_count_tuple
+        return data["count"]
+
+    N = int(input("Ingrese el número (N) de ciudades para consulta (ej.: 3, 5, 10 o 20): "))
+    country = input("Ingrese el código del país para la consulta (ej.: PL, CO o ES). Este dato es opcional: ")
+    experience = input("Ingrese el nivel de experticia de las ofertas de interés (junior, mid o senior): ")
+    start_date = input("Ingrese la fecha inicial del periodo a consultar (con formato \"%Y-%m-%d\"): ")
+    end_date = input("Ingrese la fecha final del periodo a consultar (con formato \"%Y-%m-%d\"): ")
+
+    control = {"model": None}
+    control["model"] = req_6(control, country, start_date, end_date, experience)
+    ofertas_con_skill = control["model"][0]
+    empresas_con_skill = control["model"][1]
+    promedio_ofertas_empresa = control["model"][2]
+
+    city_counts = count_jobs_by_city(ofertas_con_skill)
+    city_counts = mejor_peor_oferta_por_ciudad(city_counts)
+    city_counts = promedio_salario_por_ciudad(city_counts)
+
+    ciudad_filtrada = country if country else None
+
+    resultado = {}
+    num_cities = 0
+    for city, data in city_counts.items():
+        if data["count"] <= N and city == ciudad_filtrada:
+            num_cities += 1
+    resultado["num_cities"] = num_cities
+
+    num_companies = len(set([offer["company_name"] for offer in ofertas_con_skill]))
+    resultado["num_companies"] = num_companies
+
+    num_offers = len(ofertas_con_skill)
+    resultado["num_offers"] = num_offers
+
+    avg_salary = 0
+    if num_offers > 0:
+        avg_salary = sum([data["salary_sum"] for data in city_counts.values()]) / num_offers
+    resultado["avg_salary"] = avg_salary
+
+    max_city_data = max(city_counts.items(), key=get_max_count)
+    max_city = max_city_data[0]
+    max_count = max_city_data[1]["count"]
+    resultado["max_city"] = max_city
+    resultado["max_count"] = max_count
+
+    min_city_data = min(city_counts.items(), key=get_min_count)
+    min_city = min_city_data[0]
+    min_count = min_city_data[1]["count"]
+    resultado["min_city"] = min_city
+    resultado["min_count"] = min_count
+
+    city_counts_tuples = [(city, data) for city, data in city_counts.items()]
+    city_counts_tuples = sorted(city_counts_tuples, key=get_count, reverse=True)
+    resultado["cities"] = city_counts_tuples
+
+    return resultado
    
 
 
