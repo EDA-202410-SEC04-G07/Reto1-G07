@@ -338,28 +338,67 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
              lis.add_last(senior, lista["elements"][x]["id"],tipo)
     
     diferente = lis.new_list(tipo)
+    datos = lis.new_list(tipo)
     for k in range(lis.size(junior)):
          for g in range(lis.size(skills)):
+             if skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == junior["elements"][k]:
+                 lis.add_last(datos, skills["elements"][g]["PROOF POINT"],tipo)
              if (skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == junior["elements"][k]) and (skills["elements"][g]["PROOF POINT"] not in diferente["elements"]):
                  habilidades["junior"] += 1
                  lis.add_last(diferente, skills["elements"][g]["PROOF POINT"],tipo)
 
     diferente2 = lis.new_list(tipo)
+    datos2 = lis.new_list(tipo)
     for k in range(lis.size(mid)):
          for g in range(lis.size(skills)):
+             if skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == mid["elements"][k]:
+                 lis.add_last(datos2, skills["elements"][g]["PROOF POINT"],tipo)
              if (skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == mid["elements"][k]) and (skills["elements"][g]["PROOF POINT"] not in diferente2["elements"]):
                  habilidades["mid"] += 1
                  lis.add_last(diferente2, skills["elements"][g]["PROOF POINT"],tipo)   
 
     diferente3 = lis.new_list(tipo)
+    datos3 = lis.new_list(tipo)
     for k in range(lis.size(senior)):
          for g in range(lis.size(skills)):
+             if skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == senior["elements"][k]:
+                 lis.add_last(datos3, skills["elements"][g]["PROOF POINT"],tipo)
              if (skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == senior["elements"][k]) and (skills["elements"][g]["PROOF POINT"] not in diferente3["elements"]):
                  habilidades["senior"] += 1
                  lis.add_last(diferente3, skills["elements"][g]["PROOF POINT"],tipo)
+    
+    
+    frec = {} 
+    may = lis.new_list(tipo)
+    for l in datos["elements"]:
+        if l in may["elements"]:
+            frec[l] += 1
+        else: 
+            frec[l] = 1
+            lis.add_last(mayor, l ,tipo)
+    
+    max_junior = None
+    cont_junior_max = 0
+    min_junior = None 
+    conteo_junior_min= 10000000000000000
+
+    for l, frec in frec.items():
+      if frec > cont_junior_max:
+        cont_junior_max = frec
+        max_junior = l 
+      if frec < conteo_junior_min:
+           conteo_junior_min = frecuencia 
+           min_junior = l
+
+    
+    
+    max_habilidad = {"junior": max_junior , "mid": None, "senior": None}
+    max_conteo = {"junior": cont_junior_max, "mid": 0, "senior": 0}
+    min_habilidad = {"junior": min_junior , "mid": None, "senior": None}
+    min_conteo = {"junior": conteo_junior_min, "mid": 0, "senior": 0}
 
     # TODO: Realizar el requerimiento 7
-    return total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad, habilidades
+    return total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad, habilidades, max_habilidad, max_conteo, min_habilidad, min_conteo
 
 
 def req_8(data_structs):
