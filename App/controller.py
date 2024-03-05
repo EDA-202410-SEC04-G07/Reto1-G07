@@ -337,8 +337,8 @@ def req_7(control, num_paises, fecha_inicial, fecha_final, tipo):
     Retorna el resultado del requerimiento 7
     """
     # TODO: Modificar el requerimiento 7
-    total_ofertas, total_ciudades, max_pais, cont_pais,max_ciudad, cont_ciudad = model.req_7(control["model"],num_paises, fecha_inicial, fecha_final, tipo)
-    return total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad
+    total_ofertas, total_ciudades, max_pais, cont_pais,max_ciudad, cont_ciudad, habilidades = model.req_7(control["model"],num_paises, fecha_inicial, fecha_final, tipo)
+    return total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad, habilidades
 
 
 def req_8(control):

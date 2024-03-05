@@ -266,6 +266,7 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
     """
     Función que soluciona el requerimiento 7
     """
+    skills = data_structs["skills"]
     data_structs = sort_jobs_fecha(data_structs, tipo)
     lista = lis.new_list(tipo)
     paises = lis.new_list(tipo)
@@ -327,21 +328,38 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
     junior = lis.new_list(tipo)
     mid = lis.new_list(tipo)
     senior = lis.new_list(tipo)
+
     for x in range(lis.size(lista)):
         if lista["elements"][x]["experience_level"] == "junior": 
-             habilidades["junior"] += 1
+             lis.add_last(junior, lista["elements"][x]["id"] ,tipo)
         if lista["elements"][x]["experience_level"] == "mid": 
-             habilidades["mid"] += 1
+             lis.add_last(mid, lista["elements"][x]["id"] ,tipo)
         if lista["elements"][x]["experience_level"] == "senior": 
-             habilidades["senior"] += 1
-             
+             lis.add_last(senior, lista["elements"][x]["id"],tipo)
+    
+    diferente = lis.new_list(tipo)
+    for k in range(lis.size(junior)):
+         for g in range(lis.size(skills)):
+             if (skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == junior["elements"][k]) and (skills["elements"][g]["PROOF POINT"] not in diferente["elements"]):
+                 habilidades["junior"] += 1
+                 lis.add_last(diferente, skills["elements"][g]["PROOF POINT"],tipo)
 
+    diferente2 = lis.new_list(tipo)
+    for k in range(lis.size(mid)):
+         for g in range(lis.size(skills)):
+             if (skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == mid["elements"][k]) and (skills["elements"][g]["PROOF POINT"] not in diferente2["elements"]):
+                 habilidades["mid"] += 1
+                 lis.add_last(diferente2, skills["elements"][g]["PROOF POINT"],tipo)   
 
-
-
+    diferente3 = lis.new_list(tipo)
+    for k in range(lis.size(senior)):
+         for g in range(lis.size(skills)):
+             if (skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == senior["elements"][k]) and (skills["elements"][g]["PROOF POINT"] not in diferente3["elements"]):
+                 habilidades["senior"] += 1
+                 lis.add_last(diferente3, skills["elements"][g]["PROOF POINT"],tipo)
 
     # TODO: Realizar el requerimiento 7
-    return total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad
+    return total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad, habilidades
 
 
 def req_8(data_structs):
