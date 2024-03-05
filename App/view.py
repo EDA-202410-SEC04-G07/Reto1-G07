@@ -47,6 +47,7 @@ def new_controller(tipo):
 
 
 def print_menu():
+    print()
     print("Bienvenido")
     print("1- Cargar información y elegir tipo de lista")
     print("2- Ejecutar Requerimiento 1")
@@ -158,13 +159,21 @@ def print_req_6(control,tipo):
    
 
 
-def print_req_7(control):
+def print_req_7(control, tipo):
     """
         Función que imprime la solución del Requerimiento 7 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 7
-    pass
-
+    num_paises = int(input("Ingrese la cantidad de paises en los que quiere ver ofertas: "))
+    fecha_inicial = input("Ingrese la fecha inicial de busqueda (formato %Y-%m-%d): ")
+    fecha_final =  input("Ingrese la fecha final de busqueda (formato %Y-%m-%d): ")
+    total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad = controller.req_7(control,num_paises, fecha_inicial, fecha_final, tipo)
+    print()
+    print("El total de ofertas de trabajo publicadas en el periodo buscado es de: " + str(total_ofertas) + " ofertas para " + str(num_paises) + " paises")
+    print("El numero de ciudades donde se oferto trabajo es de: " + str(total_ciudades) + " ciudades")
+    print("El país con mayor cantidad de ofertas es " +  str(max_pais)  + " con " + str(cont_pais) + " ofertas")
+    print("La ciudad con mayor cantidad de ofertas es " +  str(max_ciudad)  + " con " + str(cont_ciudad) + " ofertas")
+    
 
 def print_req_8(control):
     """
@@ -263,11 +272,11 @@ if __name__ == "__main__":
         elif int(inputs) == 6:
             print_req_5(control, tipo)
 
-        elif int(inputs) == 7:
+        elif int(inputs, tipo) == 7:
             print_req_6(control,tipo)
 
         elif int(inputs) == 8:
-            print_req_7(control)
+            print_req_7(control, tipo)
 
         elif int(inputs) == 9:
             print_req_8(control)

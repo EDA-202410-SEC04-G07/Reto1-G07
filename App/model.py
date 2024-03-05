@@ -238,21 +238,110 @@ def req_5(data_structs, city, fecha_inicial, fecha_final, tipo):
 #def total_empresas(data_structs, city, fecha_inicial, fecha_final, tipo):
    
 
-def req_6(data_structs):
+def req_6(data_structs, num_ciudades, cod_pais, niv_exp, fecha_inicial, fecha_final, tipo):
     """
     Función que soluciona el requerimiento 6
     """
-    # TODO: Realizar el requerimiento 6
-    pass
+    data_structs = sort_jobs_fecha(data_structs, tipo)
+    lista = lis.new_list(tipo)
+    lista1= lis.new_list(tipo)
+    ciudades = lis.new_list(tipo)
+    contador = 0 
+
+    for i in range(lis.size(data_structs)):
+      if (fecha_inicial<=data_structs["elements"][i]["published_at"] <= fecha_final) and (data_structs["elements"][i]["experience_level"] == niv_exp):
+        if cod_pais == 0:
+              x = 3
+        else: 
+           if data_structs["elements"][i]["country_code"] == cod_pais:
+                if data_structs["elements"][i]["city"] not in ciudades["elements"]:
+                     lis.add_last(ciudades, data_structs["elements"][i],tipo)
+                 
+   
+    return 
+    
 
 
-def req_7(data_structs):
+def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
     """
     Función que soluciona el requerimiento 7
     """
+    data_structs = sort_jobs_fecha(data_structs, tipo)
+    lista = lis.new_list(tipo)
+    paises = lis.new_list(tipo)
+    contador = 0 
+    for i in range(lis.size(data_structs)):
+      if (fecha_inicial<=data_structs["elements"][i]["published_at"] <= fecha_final):
+        if data_structs["elements"][i]["country_code"] not in paises["elements"]: 
+             lis.add_last(paises, data_structs["elements"][i]["country_code"],tipo)
+             contador += 1
+        if (contador <= num_paises):
+                 lis.add_last(lista, data_structs["elements"][i],tipo)
+        
+                 
+    total_ofertas = lis.size(lista)
+    ciudades = lis.new_list(tipo)
+    for y in range(lis.size(lista)):
+          if data_structs["elements"][y]["city"] not in ciudades["elements"]: 
+             lis.add_last(ciudades, data_structs["elements"][y]["city"],tipo)
+             
+    total_ciudades = lis.size(ciudades)
+
+    frecuencia = {} 
+    frecuencia2 = {}
+    mayor = lis.new_list(tipo)
+    mayor_city = lis.new_list(tipo)
+    for l in range(lis.size(lista)):
+          if lista["elements"][l]["country_code"] in mayor["elements"]:
+              frecuencia[lista["elements"][l]["country_code"]] += 1
+          else: 
+              frecuencia[lista["elements"][l]["country_code"]] = 1
+              lis.add_last(mayor, lista["elements"][l]["country_code"] ,tipo)
+
+          if lista["elements"][l]["city"] in mayor_city["elements"]:
+              frecuencia2[lista["elements"][l]["city"]] += 1
+          else: 
+              frecuencia2[lista["elements"][l]["city"]] = 1
+              lis.add_last(mayor_city, lista["elements"][l]["city"] ,tipo) 
+    
+    max_pais = None
+    cont_pais = 0
+    max_ciudad = None
+    cont_ciudad= 0
+
+    for l, frecuencia in frecuencia.items():
+      if frecuencia > cont_pais:
+        cont_pais = frecuencia
+        max_pais = l 
+    
+    for l, frecuencia2 in frecuencia2.items():
+      if frecuencia2 > cont_ciudad:
+        cont_ciudad = frecuencia2
+        max_ciudad = l
+
+    
+      
+     #Habilidades diferentes
+    
+    habilidades = {"junior": 0 , "mid": 0, "senior": 0}
+    junior = lis.new_list(tipo)
+    mid = lis.new_list(tipo)
+    senior = lis.new_list(tipo)
+    for x in range(lis.size(lista)):
+        if lista["elements"][x]["experience_level"] == "junior": 
+             habilidades["junior"] += 1
+        if lista["elements"][x]["experience_level"] == "mid": 
+             habilidades["mid"] += 1
+        if lista["elements"][x]["experience_level"] == "senior": 
+             habilidades["senior"] += 1
+             
+
+
+
+
 
     # TODO: Realizar el requerimiento 7
-    pass
+    return total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad
 
 
 def req_8(data_structs):
