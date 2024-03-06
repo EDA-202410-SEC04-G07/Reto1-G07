@@ -165,41 +165,38 @@ def req_2(data_structs):
 ##### REQUERIMIENTO 3 #####
 
 def req_3(data, empresa, fecha_inicial, fecha_final):
-    # Filtrar las ofertas de la empresa especificada en el rango de fechas dado
-    ofertas_empresa = []
-    for oferta in data:
-        if oferta['empresa'] == empresa and fecha_inicial <= oferta['fecha'] <= fecha_final:
-            ofertas_empresa.append(oferta)
 
-    # Agrupar las ofertas por nivel de experencia y contar el número de ofertas en cada grupo
+    ofertas_empresa = [oferta for oferta in data if oferta['empresa'] == empresa and fecha_inicial <= oferta['fecha'] <= fecha_final]
+
+
     ofertas_agrupadas = {}
     for oferta in ofertas_empresa:
         if oferta['nivel_experiencia'] not in ofertas_agrupadas:
             ofertas_agrupadas[oferta['nivel_experiencia']] = 0
         ofertas_agrupadas[oferta['nivel_experiencia']] += 1
 
-    # Calcular el número total de ofertas y el número de ofertas por nivel de experencia
     ofertas_total = len(ofertas_empresa)
     ofertas_junior = ofertas_agrupadas.get('junior', 0)
     ofertas_mid = ofertas_agrupadas.get('mid', 0)
     ofertas_senior = ofertas_agrupadas.get('senior', 0)
 
-    # Ordenar las ofertas por fecha y país
-    fecha_pais_tuplas = [(oferta['fecha'], oferta['pais']) for oferta in ofertas_empresa]
-    fecha_pais_ordenadas = sorted(fecha_pais_tuplas, key=ordenar_fecha_pais)
-
-    # Crear una lista de ofertas ordenadas a partir de las tuplas ordenadas
     ofertas_ordenadas = []
     oferta_anterior = None
-    for fecha, pais in fecha_pais_ordenadas:
-        if oferta_anterior is None or fecha > oferta_anterior['fecha'] or (fecha == oferta_anterior['fecha'] and pais < oferta_anterior['pais']):
-            ofertas_ordenadas.append(oferta)
-        oferta_anterior = oferta
+    for oferta in sorted(ofertas_empresa, key=ordenar_fecha_pais):
+        if oferta_anterior is None or oferta['fecha'] > oferta_anterior['fecha'] or (oferta['fecha'] == oferta_anterior['fecha'] and oferta['pais'] < oferta_anterior['pais']):
+            ofertas_ordenadas.append({
+                'fecha': oferta['fecha'],
+                'titulo': oferta['titulo'],
+                'nivel_experiencia': oferta['nivel_experiencia'],
+                'ciudad': oferta['ciudad'],
+                'pais': oferta['pais'],
+                'tamano_empresa': oferta['tamano_empresa'],
+                'tipo_lugar_trabajo': oferta['tipo_lugar_trabajo'],
+                'contratar_ucranianos': oferta['contratar_ucranianos']
+            })
+            oferta_anterior = oferta
 
-    def ordenar_fecha_pais(tupla):
-        return (tupla[0], tupla[1])
-
-    respuesta = {
+    return {
         'ofertas_total': ofertas_total,
         'ofertas_junior': ofertas_junior,
         'ofertas_mid': ofertas_mid,
@@ -207,7 +204,8 @@ def req_3(data, empresa, fecha_inicial, fecha_final):
         'ofertas_empresa': ofertas_ordenadas
     }
 
-    return respuesta
+def ordenar_fecha_pais(oferta):
+    return (oferta['fecha'], oferta['pais'])
 
 
 def req_4(data_structs):
