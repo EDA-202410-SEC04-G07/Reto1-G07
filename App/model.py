@@ -277,7 +277,7 @@ def req_6(data_structs, start_date, end_date, country, experience, tipo):
     if experience:
         filtered_jobs = [job for job in filtered_jobs if job["expertise_level"] == experience]
     
-    # Agregar los trabajos filtrados a la lista
+
     for job in filtered_jobs:
         lis.add_last(lista, job, tipo)
 
