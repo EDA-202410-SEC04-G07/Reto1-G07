@@ -221,16 +221,17 @@ def req_5(data_structs, city, fecha_inicial, fecha_final, tipo):
     Función que soluciona el requerimiento 5
     """
     # TODO: Realizar el requerimiento 5
+    # primero organiza la lista bajo el criterio necesitado 
     data_structs = sort_jobs_fecha(data_structs, tipo)
     lista = lis.new_list(tipo)
-
+    # luego la filtra y le saca el tamaño para obtener el total de ofertas publicadas en la ciudad en el periodo de consulta
     for i in range(lis.size(data_structs)):
         if (data_structs["elements"][i]["city"] == city) and (fecha_inicial<=data_structs["elements"][i]["published_at"] <= fecha_final):
                  lis.add_last(lista, data_structs["elements"][i],tipo)
 
     lista_ordenada = lista 
     total_ofertas = lis.size(lista)
-    
+    # despues crea una lista fantasma en la que se guardan todas las empresas que publicaron 
     empresas = lis.new_list(tipo)
     total_empresas = lis.new_list(tipo)
     for m in range(lis.size(lista)):
@@ -238,7 +239,7 @@ def req_5(data_structs, city, fecha_inicial, fecha_final, tipo):
                  lis.add_last(empresas, lista["elements"][m]["company_name"],tipo)
         lis.add_last(total_empresas, lista["elements"][m]["company_name"],tipo)
     dato_empresas = lis.size(empresas)
-    
+    # mas tarde se hace una funcion iterativa para comparar el menor y el mayor de toda la lista, y asi guardarlos para que luego sean retornados
     frecuencia = {} 
     mayor = lis.new_list(tipo)
     for l in total_empresas["elements"]:
@@ -259,7 +260,7 @@ def req_5(data_structs, city, fecha_inicial, fecha_final, tipo):
       if frecuencia < conteo_min:
            conteo_min = frecuencia 
            min_empresa = l
-    
+    # Y por ultimo se retorna la lista ordenada inicial para sacar todos sus valores viltrados en el view
     return total_ofertas, dato_empresas, conteo_empresa, max_empresa, conteo_min, min_empresa, lista_ordenada
 
 
