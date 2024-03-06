@@ -163,7 +163,7 @@ def req_2(data_structs):
 
 
 ##### REQUERIMIENTO 3 #####
-
+#sortjobs
 def req_3(data, empresa, fecha_inicial, fecha_final):
 
     ofertas_empresa = [oferta for oferta in data if oferta['empresa'] == empresa and fecha_inicial <= oferta['fecha'] <= fecha_final]
@@ -267,14 +267,21 @@ def req_5(data_structs, city, fecha_inicial, fecha_final, tipo):
 #def total_empresas(data_structs, city, fecha_inicial, fecha_final, tipo):
    
 
-def req_6(data_structs, start_date, end_date, country=None, experience=None):
- 
+def req_6(data_structs, start_date, end_date, country, experience, tipo):
+    data_structs = sort_jobs_fecha(data_structs, tipo)
+    lista = lis.new_list(tipo)
+
     filtered_jobs = [job for job in data_structs["jobs"] if start_date <= datetime.strptime(job["published_at"], "%Y-%m-%d") <= end_date]
     if country:
         filtered_jobs = [job for job in filtered_jobs if job["country_code"] == country]
     if experience:
         filtered_jobs = [job for job in filtered_jobs if job["expertise_level"] == experience]
-    return filtered_jobs
+    
+
+    for job in filtered_jobs:
+        lis.add_last(lista, job, tipo)
+
+    return lista
 
 def count_jobs_by_city(jobs):
     city_counts = {}
