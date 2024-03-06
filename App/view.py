@@ -249,13 +249,13 @@ def print_req_7(control, tipo):
     print("El país con mayor cantidad de ofertas es " +  str(max_pais)  + " con " + str(cont_pais) + " ofertas")
     print("La ciudad con mayor cantidad de ofertas es " +  str(max_ciudad)  + " con " + str(cont_ciudad) + " ofertas")
     print("El conteo de habilidades diferentes solicitadas en ofertas de trabajo es de " + str(habilidades) + " habilidades dado el nivel de experticia requerido")
-    print(str(max_habilidad) + str(max_conteo)) 
-    print(str(min_habilidad) + str(min_conteo))
-    print(str(niv_min_promedio))
-    print(str(empresas_niv))
-    print( str(max_empresas) + str(max_conteoo))
-    print(str(min_empresas) + str(min_conteoo))
-    print(str(empresas_multilocations))
+    print("La habilidad más solicitada es " + str(max_habilidad)+ " y su conteo en ofertas de trabajo es de " + str(max_conteo) + " ofertas dado el nivel de experticia requerido") 
+    print("La habilidad menos solicitada es " + str(min_habilidad) +   " y su conteo en ofertas de trabajo es de "+ str(min_conteo)+" ofertas dado el nivel de experticia requerido")
+    print("EL nivel mínimo promedio (redondeado hacia abajo) de las habilidades es de " + str(niv_min_promedio) + " dado el nivel de experticia requerido")
+    print("El conteo de empresas que publicaron una oferta con este nivel promedio es de " + str(empresas_niv)+ " empresas distintas dado el nivel de experticia requerido")
+    print("La empresa con mayor número de ofertas con este nivel promedio es " + str(max_empresas) + " y su conteo es de " + str(max_conteoo) + " ofertas dado el nivel de experticia requerido")
+    print("La empresa con menor número de ofertas (al menos una) con este nivel promedio es " + str(min_empresas) + " y su conteo es de "+ str(min_conteoo)+ " ofertas dado el nivel de experticia requerido")
+    print("El número de empresas que publicaron una oferta en este nivel promedio que tienen una o más sedes es de " + str(empresas_multilocations) + " empresas dado el nivel de experticia requerido")
 
 
 def print_req_8(control):

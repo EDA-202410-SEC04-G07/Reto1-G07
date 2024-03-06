@@ -404,41 +404,52 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
     junior = lis.new_list(tipo)
     mid = lis.new_list(tipo)
     senior = lis.new_list(tipo)
-
+    junio = lis.new_list(tipo)
+    mi = lis.new_list(tipo)
+    senio = lis.new_list(tipo)
     for x in range(lis.size(lista)):
         if lista["elements"][x]["experience_level"] == "junior": 
              lis.add_last(junior, lista["elements"][x]["id"] ,tipo)
+             lis.add_last(junio, lista["elements"][x] ,tipo)
         if lista["elements"][x]["experience_level"] == "mid": 
              lis.add_last(mid, lista["elements"][x]["id"] ,tipo)
+             lis.add_last(mi, lista["elements"][x] ,tipo)
         if lista["elements"][x]["experience_level"] == "senior": 
              lis.add_last(senior, lista["elements"][x]["id"],tipo)
+             lis.add_last(senio, lista["elements"][x] ,tipo)
     
     diferente = lis.new_list(tipo)
     datos = lis.new_list(tipo)
+    emp = lis.new_list(tipo)
     for k in range(lis.size(junior)):
          for g in range(lis.size(skills)):
              if skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == junior["elements"][k]:
                  lis.add_last(datos, skills["elements"][g],tipo)
+                 lis.add_last(emp, junio["elements"][k],tipo)
              if (skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == junior["elements"][k]) and (skills["elements"][g]["PROOF POINT"] not in diferente["elements"]):
                  habilidades["junior"] += 1
                  lis.add_last(diferente, skills["elements"][g]["PROOF POINT"],tipo)
 
     diferente2 = lis.new_list(tipo)
     datos2 = lis.new_list(tipo)
+    emp2 =lis.new_list(tipo)
     for k in range(lis.size(mid)):
          for g in range(lis.size(skills)):
              if skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == mid["elements"][k]:
                  lis.add_last(datos2, skills["elements"][g],tipo)
+                 lis.add_last(emp2, mi["elements"][k],tipo)
              if (skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == mid["elements"][k]) and (skills["elements"][g]["PROOF POINT"] not in diferente2["elements"]):
                  habilidades["mid"] += 1
                  lis.add_last(diferente2, skills["elements"][g]["PROOF POINT"],tipo)   
 
     diferente3 = lis.new_list(tipo)
     datos3 = lis.new_list(tipo)
+    emp3 = lis.new_list(tipo)
     for k in range(lis.size(senior)):
          for g in range(lis.size(skills)):
              if skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == senior["elements"][k]:
                  lis.add_last(datos3, skills["elements"][g],tipo)
+                 lis.add_last(emp3, senio["elements"][k],tipo)
              if (skills["elements"][g]["intelligints-senior-cybersecurity-engineer"] == senior["elements"][k]) and (skills["elements"][g]["PROOF POINT"] not in diferente3["elements"]):
                  habilidades["senior"] += 1
                  lis.add_last(diferente3, skills["elements"][g]["PROOF POINT"],tipo)
@@ -550,10 +561,10 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
     for k in range(lis.size(datos)):
          if int(datos["elements"][k]["3"]) == promedio:
              lis.add_last(data, datos["elements"][k],tipo)
-         if (int(datos["elements"][k]["3"]) == promedio) and (datos["elements"][k]["PROOF POINT"] not in dif["elements"]) :
+         if (int(datos["elements"][k]["3"]) == promedio) and (emp["elements"][k]["company_name"] not in dif["elements"]) :
              empresas_niv["junior"] += 1
-             lis.add_last(dif, datos["elements"][k]["PROOF POINT"] ,tipo)
-             lis.add_last(id_list, datos["elements"][k] ,tipo)
+             lis.add_last(dif, emp["elements"][k]["company_name"] ,tipo)
+             lis.add_last(id_list, emp["elements"][k] ,tipo)
             
     dif2 = lis.new_list(tipo)
     data2 = lis.new_list(tipo)
@@ -561,10 +572,10 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
     for k in range(lis.size(datos2)):
          if int(datos2["elements"][k]["3"]) == promedio2:
              lis.add_last(data2, datos2["elements"][k],tipo)
-         if (int(datos2["elements"][k]["3"]) == promedio2) and (datos2["elements"][k]["PROOF POINT"] not in dif2["elements"]) :
+         if (int(datos2["elements"][k]["3"]) == promedio2) and (emp2["elements"][k]["company_name"] not in dif2["elements"]) :
              empresas_niv["mid"] += 1
-             lis.add_last(dif2, datos2["elements"][k]["PROOF POINT"] ,tipo)
-             lis.add_last(id_list2, datos2["elements"][k] ,tipo)
+             lis.add_last(dif2, emp2["elements"][k]["company_name"] ,tipo)
+             lis.add_last(id_list2, emp2["elements"][k] ,tipo)
 
     dif3 = lis.new_list(tipo)
     data3 = lis.new_list(tipo)
@@ -572,21 +583,21 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
     for k in range(lis.size(datos3)):
          if int(datos3["elements"][k]["3"]) == promedio3:
              lis.add_last(data3, datos3["elements"][k],tipo)
-         if (int(datos3["elements"][k]["3"]) == promedio3) and (datos3["elements"][k]["PROOF POINT"] not in dif3["elements"]) :
+         if (int(datos3["elements"][k]["3"]) == promedio3) and (emp3["elements"][k]["company_name"] not in dif3["elements"]) :
              empresas_niv["senior"] += 1
-             lis.add_last(dif3, datos3["elements"][k]["PROOF POINT"] ,tipo)
-             lis.add_last(id_list3, datos3["elements"][k] ,tipo)
+             lis.add_last(dif3, emp3["elements"][k]["company_name"],tipo)
+             lis.add_last(id_list3, emp3["elements"][k] ,tipo)
 
 
 
     repetitividad = {} 
     mas_grande = lis.new_list(tipo)
-    for l in range(lis.size(data)):
-        if data["elements"][l]["PROOF POINT"]in mas_grande["elements"]:
-            repetitividad[data["elements"][l]["PROOF POINT"]] += 1
+    for l in range(lis.size(emp)):
+        if emp["elements"][l]["company_name"]in mas_grande["elements"]:
+            repetitividad[emp["elements"][l]["company_name"]] += 1
         else: 
-            repetitividad[data["elements"][l]["PROOF POINT"]] = 1
-            lis.add_last(mas_grande, data["elements"][l]["PROOF POINT"] ,tipo)
+            repetitividad[emp["elements"][l]["company_name"]] = 1
+            lis.add_last(mas_grande, emp["elements"][l]["company_name"] ,tipo)
     
     maxi_junior = None
     conta_junior_max = 0
@@ -603,12 +614,12 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
 
     repetitivida = {} 
     mas_grand = lis.new_list(tipo)
-    for l in range(lis.size(data2)):
-        if data2["elements"][l]["PROOF POINT"]in mas_grand["elements"]:
-            repetitivida[data2["elements"][l]["PROOF POINT"]] += 1
+    for l in range(lis.size(emp2)):
+        if emp2["elements"][l]["company_name"]in mas_grand["elements"]:
+            repetitivida[emp2["elements"][l]["company_name"]] += 1
         else: 
-            repetitivida[data2["elements"][l]["PROOF POINT"]] = 1
-            lis.add_last(mas_grand, data2["elements"][l]["PROOF POINT"] ,tipo)
+            repetitivida[emp2["elements"][l]["company_name"]] = 1
+            lis.add_last(mas_grand, emp2["elements"][l]["company_name"] ,tipo)
     
     maxi_mid = None
     conta_mid_max = 0
@@ -626,12 +637,12 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
 
     repetitivid = {} 
     mas_gran = lis.new_list(tipo)
-    for l in range(lis.size(data3)):
-        if data3["elements"][l]["PROOF POINT"]in mas_gran["elements"]:
-            repetitivid[data3["elements"][l]["PROOF POINT"]] += 1
+    for l in range(lis.size(emp3)):
+        if emp3["elements"][l]["company_name"]in mas_gran["elements"]:
+            repetitivid[emp3["elements"][l]["company_name"]] += 1
         else: 
-            repetitivid[data3["elements"][l]["PROOF POINT"]] = 1
-            lis.add_last(mas_gran, data3["elements"][l]["PROOF POINT"] ,tipo)
+            repetitivid[emp3["elements"][l]["company_name"]] = 1
+            lis.add_last(mas_gran, emp3["elements"][l]["company_name"] ,tipo)
     
     maxi_senior = None
     conta_senior_max = 0
@@ -659,23 +670,23 @@ def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
 
     for d in range(lis.size(id_list)):
         for k in range(lis.size(multilocations)):
-           if (id_list["elements"][d]["intelligints-senior-cybersecurity-engineer"] == multilocations["elements"][k]["intelligints-senior-cybersecurity-engineer"]) and (id_list["elements"][d]["intelligints-senior-cybersecurity-engineer"] not in repeti["elements"]):
+           if (id_list["elements"][d]["id"] == multilocations["elements"][k]["intelligints-senior-cybersecurity-engineer"]) and (id_list["elements"][d]["id"] not in repeti["elements"]) and (multilocations["elements"][k]["Riyadh"] != "-"):
                empresas_multilocations["junior"] += 1
-               lis.add_last(repeti, id_list["elements"][d]["intelligints-senior-cybersecurity-engineer"] ,tipo)
+               lis.add_last(repeti, id_list["elements"][d]["id"] ,tipo)
     
     repet = lis.new_list(tipo)
     for d in range(lis.size(id_list2)):
         for k in range(lis.size(multilocations)):
-           if (id_list2["elements"][d]["intelligints-senior-cybersecurity-engineer"] == multilocations["elements"][k]["intelligints-senior-cybersecurity-engineer"])and (id_list2["elements"][d]["intelligints-senior-cybersecurity-engineer"] not in repet["elements"]):
+           if (id_list2["elements"][d]["id"] == multilocations["elements"][k]["intelligints-senior-cybersecurity-engineer"])and (id_list2["elements"][d]["id"] not in repet["elements"]) and (multilocations["elements"][k]["Riyadh"] != "-"):
                empresas_multilocations["mid"] += 1
-               lis.add_last(repet, id_list2["elements"][d]["intelligints-senior-cybersecurity-engineer"] ,tipo)
+               lis.add_last(repet, id_list2["elements"][d]["id"] ,tipo)
 
     repe = lis.new_list(tipo)
     for d in range(lis.size(id_list3)):
         for k in range(lis.size(multilocations)):
-           if (id_list3["elements"][d]["intelligints-senior-cybersecurity-engineer"] == multilocations["elements"][k]["intelligints-senior-cybersecurity-engineer"])and (id_list3["elements"][d]["intelligints-senior-cybersecurity-engineer"] not in repe["elements"]):
+           if (id_list3["elements"][d]["id"] == multilocations["elements"][k]["intelligints-senior-cybersecurity-engineer"])and (id_list3["elements"][d]["id"] not in repe["elements"]) and (multilocations["elements"][k]["Riyadh"] != "-"):
                empresas_multilocations["senior"] += 1
-               lis.add_last(repe, id_list3["elements"][d]["intelligints-senior-cybersecurity-engineer"] ,tipo)
+               lis.add_last(repe, id_list3["elements"][d]["id"] ,tipo)
      
     return total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad, habilidades, max_habilidad, max_conteo, min_habilidad, min_conteo, niv_min_promedio, empresas_niv, max_empresas, max_conteoo,min_empresas, min_conteoo, empresas_multilocations
 
