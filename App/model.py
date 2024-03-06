@@ -26,6 +26,7 @@
 
 
 import config as cf
+import pandas as pd
 from datetime import datetime
 from Estructuras import Lista as lis
 from Sorts import Shell as shs
@@ -164,19 +165,30 @@ def req_2(data_structs):
 
 ##### REQUERIMIENTO 3 #####
 
-def jobs_compania_fecha(data_structs, company_name, start_date, end_date):
-    
-    jobs_req3 = [job for job in data_structs["jobs"] if job["company_name"] == company_name and
-                     start_date <= datetime.strptime(job["published_at"], "%Y-%m-%d") <= end_date]
-    return jobs_req3
+def req_3(data, empresa, fecha_inicial, fecha_final):
 
-def contar_jobs_experiencia(jobs):
-    
-    junior = sum(1 for job in jobs if job["expertise_level"] == "junior")
-    mid = sum(1 for job in jobs if job["expertise_level"] == "mid")
-    senior = sum(1 for job in jobs if job["expertise_level"] == "senior")
+    ofertas_empresa = data[(data['empresa'] == empresa) and (pd.to_datetime(data['fecha']) >= pd.to_datetime(fecha_inicial)) and
+                            (pd.to_datetime(data['fecha']) <= pd.to_datetime(fecha_final))]
 
-    return junior, mid, senior
+
+    ofertas_agrupadas = ofertas_empresa.groupby('nivel_experiencia').size()
+
+    ofertas_total = len(ofertas_empresa)
+    ofertas_junior = ofertas_agrupadas['junior'] if 'junior' in ofertas_agrupadas.index else 0
+    ofertas_mid = ofertas_agrupadas['mid'] if 'mid' in ofertas_agrupadas.index else 0
+    ofertas_senior = ofertas_agrupadas['senior'] if 'senior' in ofertas_agrupadas.index else 0
+
+    ofertas_ordenadas = ofertas_empresa.sort_values(['fecha', 'pais'])
+
+    respuesta = {
+        'ofertas_total': ofertas_total,
+        'ofertas_junior': ofertas_junior,
+        'ofertas_mid': ofertas_mid,
+        'ofertas_senior': ofertas_senior,
+        'ofertas_empresa': ofertas_ordenadas[['fecha', 'titulo', 'nivel_experiencia', 'ciudad', 'pais', 'tamaño_empresa', 'lugar_trabajo', 'contratar_ucranianos']].to_dict('records')
+    }
+
+    return respuesta
 
 
 def req_4(data_structs):
@@ -238,28 +250,64 @@ def req_5(data_structs, city, fecha_inicial, fecha_final, tipo):
 #def total_empresas(data_structs, city, fecha_inicial, fecha_final, tipo):
    
 
-def req_6(data_structs, num_ciudades, cod_pais, niv_exp, fecha_inicial, fecha_final, tipo):
-    """
-    Función que soluciona el requerimiento 6
-    """
-    data_structs = sort_jobs_fecha(data_structs, tipo)
-    lista = lis.new_list(tipo)
-    lista1= lis.new_list(tipo)
-    ciudades = lis.new_list(tipo)
-    contador = 0 
+def req_6(data_structs, start_date, end_date, country=None, experience=None):
+ 
+    filtered_jobs = [job for job in data_structs["jobs"] if start_date <= datetime.strptime(job["published_at"], "%Y-%m-%d") <= end_date]
+    if country:
+        filtered_jobs = [job for job in filtered_jobs if job["country_code"] == country]
+    if experience:
+        filtered_jobs = [job for job in filtered_jobs if job["expertise_level"] == experience]
+    return filtered_jobs
 
-    for i in range(lis.size(data_structs)):
-      if (fecha_inicial<=data_structs["elements"][i]["published_at"] <= fecha_final) and (data_structs["elements"][i]["experience_level"] == niv_exp):
-        if cod_pais == 0:
-              x = 3
-        else: 
-           if data_structs["elements"][i]["country_code"] == cod_pais:
-                if data_structs["elements"][i]["city"] not in ciudades["elements"]:
-                     lis.add_last(ciudades, data_structs["elements"][i],tipo)
-                 
-   
-    return 
-    
+def count_jobs_by_city(jobs):
+    city_counts = {}
+    for job in jobs:
+        city_name = job["city"]
+        if city_name not in city_counts:
+            city_counts[city_name] = {"count": 0, "salary_sum": 0, "companies": {}, "best_offer": None, "worst_offer": None}
+        city_counts[city_name]["count"] += 1
+        city_counts[city_name]["salary_sum"] += job["salary"] if "salary" in job else 0
+        if job["company_name"] not in city_counts[city_name]["companies"]:
+            city_counts[city_name]["companies"][job["company_name"]] = 0
+        city_counts[city_name]["companies"][job["company_name"]] += 1
+        if not city_counts[city_name]["best_offer"] or city_counts[city_name]["best_offer"]["salary"] <  job["salary"]:
+            city_counts[city_name]["best_offer"] = job
+        if not city_counts[city_name]["worst_offer"] or city_counts[city_name]["worst_offer"]["salary"] > job["salary"]:
+            city_counts[city_name]["worst_offer"] = job
+    return city_counts
+
+def promedio_salario_por_ciudad(city_counts):
+
+    for city, data in city_counts.items():
+        city_counts[city]["avg_salary"] = data["salary_sum"] / data["count"] if data["count"] > 0 else 0
+    return city_counts
+
+def mejor_peor_oferta_por_ciudad(city_counts):
+
+    for city, data in city_counts.items():
+        if not data["best_offer"]["salary"]:
+            del data["best_offer"]
+        if not data["worst_offer"]["salary"]:
+            del data["worst_offer"]
+    return city_counts
+
+def ordenar_ciudades_count(city_counts):
+    def get_count(city_count):
+        return city_count[1]["count"]
+
+    def get_name(city_count):
+        return city_count[0]
+
+    def compare_city_counts(x, y):
+        count_diff = get_count(x) - get_count(y)
+        if count_diff != 0:
+            return count_diff
+        else:
+            return (get_name(x) > get_name(y)) - (get_name(x) < get_name(y))
+
+    sorted_city_counts = sorted(city_counts.items(), key=cmp_to_key(compare_city_counts))
+
+    return sorted_city_counts
 
 
 def req_7(data_structs, num_paises, fecha_inicial, fecha_final, tipo):
