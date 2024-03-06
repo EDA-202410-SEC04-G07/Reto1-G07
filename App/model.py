@@ -26,7 +26,6 @@
 
 
 import config as cf
-import pandas as pd
 from datetime import datetime
 from Estructuras import Lista as lis
 from Sorts import Shell as shs
@@ -166,26 +165,46 @@ def req_2(data_structs):
 ##### REQUERIMIENTO 3 #####
 
 def req_3(data, empresa, fecha_inicial, fecha_final):
+    # Filtrar las ofertas de la empresa especificada en el rango de fechas dado
+    ofertas_empresa = []
+    for oferta in data:
+        if oferta['empresa'] == empresa and fecha_inicial <= oferta['fecha'] <= fecha_final:
+            ofertas_empresa.append(oferta)
 
-    ofertas_empresa = data[(data['empresa'] == empresa) and (pd.to_datetime(data['fecha']) >= pd.to_datetime(fecha_inicial)) and
-                            (pd.to_datetime(data['fecha']) <= pd.to_datetime(fecha_final))]
+    # Agrupar las ofertas por nivel de experencia y contar el número de ofertas en cada grupo
+    ofertas_agrupadas = {}
+    for oferta in ofertas_empresa:
+        if oferta['nivel_experiencia'] not in ofertas_agrupadas:
+            ofertas_agrupadas[oferta['nivel_experiencia']] = 0
+        ofertas_agrupadas[oferta['nivel_experiencia']] += 1
 
-
-    ofertas_agrupadas = ofertas_empresa.groupby('nivel_experiencia').size()
-
+    # Calcular el número total de ofertas y el número de ofertas por nivel de experencia
     ofertas_total = len(ofertas_empresa)
-    ofertas_junior = ofertas_agrupadas['junior'] if 'junior' in ofertas_agrupadas.index else 0
-    ofertas_mid = ofertas_agrupadas['mid'] if 'mid' in ofertas_agrupadas.index else 0
-    ofertas_senior = ofertas_agrupadas['senior'] if 'senior' in ofertas_agrupadas.index else 0
+    ofertas_junior = ofertas_agrupadas.get('junior', 0)
+    ofertas_mid = ofertas_agrupadas.get('mid', 0)
+    ofertas_senior = ofertas_agrupadas.get('senior', 0)
 
-    ofertas_ordenadas = ofertas_empresa.sort_values(['fecha', 'pais'])
+    # Ordenar las ofertas por fecha y país
+    fecha_pais_tuplas = [(oferta['fecha'], oferta['pais']) for oferta in ofertas_empresa]
+    fecha_pais_ordenadas = sorted(fecha_pais_tuplas, key=ordenar_fecha_pais)
+
+    # Crear una lista de ofertas ordenadas a partir de las tuplas ordenadas
+    ofertas_ordenadas = []
+    oferta_anterior = None
+    for fecha, pais in fecha_pais_ordenadas:
+        if oferta_anterior is None or fecha > oferta_anterior['fecha'] or (fecha == oferta_anterior['fecha'] and pais < oferta_anterior['pais']):
+            ofertas_ordenadas.append(oferta)
+        oferta_anterior = oferta
+
+    def ordenar_fecha_pais(tupla):
+        return (tupla[0], tupla[1])
 
     respuesta = {
         'ofertas_total': ofertas_total,
         'ofertas_junior': ofertas_junior,
         'ofertas_mid': ofertas_mid,
         'ofertas_senior': ofertas_senior,
-        'ofertas_empresa': ofertas_ordenadas[['fecha', 'titulo', 'nivel_experiencia', 'ciudad', 'pais', 'tamaño_empresa', 'lugar_trabajo', 'contratar_ucranianos']].to_dict('records')
+        'ofertas_empresa': ofertas_ordenadas
     }
 
     return respuesta
@@ -305,7 +324,10 @@ def ordenar_ciudades_count(city_counts):
         else:
             return (get_name(x) > get_name(y)) - (get_name(x) < get_name(y))
 
-    sorted_city_counts = sorted(city_counts.items(), key=cmp_to_key(compare_city_counts))
+    def key_funct(city_count):
+        return (get_count(city_count), get_name(city_count))
+
+    sorted_city_counts = sorted(city_counts.items(), key=key_funct)
 
     return sorted_city_counts
 
