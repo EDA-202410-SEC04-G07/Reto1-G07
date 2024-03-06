@@ -313,8 +313,12 @@ def req_5(control,city, fecha_inicial, fecha_final, tipo):
     Retorna el resultado del requerimiento 5
     """
     # TODO: Modificar el requerimiento 5
+    start_time = getTime()
     total_ofertas, dato_empresas, conteo_empresa, max_empresa,conteo_min, min_empresa, lista_ordenada = model.req_5(control["model"],city, fecha_inicial, fecha_final, tipo)
-    return total_ofertas, dato_empresas, conteo_empresa, max_empresa, conteo_min, min_empresa, lista_ordenada
+    end_time = getTime()
+    delta_time = deltaTime(start_time, end_time)
+    
+    return total_ofertas, dato_empresas, conteo_empresa, max_empresa, conteo_min, min_empresa, lista_ordenada, delta_time
     
 
 def req_6(control, ciudad, fecha_inicial, fecha_final, skill):

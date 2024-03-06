@@ -149,7 +149,7 @@ def print_req_5(control, tipo):
     city = input("Ingrese una ciudad de busqueda:")
     fecha_inicial = input("Ingrese la fecha inicial de busqueda (formato %Y-%m-%d):")
     fecha_final =  input("Ingrese la fecha final de busqueda (formato %Y-%m-%d):")
-    total_ofertas, dato_empresas, conteo_empresa, max_empresa, conteo_min, min_empresa, lista_ordenada = controller.req_5(control,city, fecha_inicial, fecha_final, tipo)
+    total_ofertas, dato_empresas, conteo_empresa, max_empresa, conteo_min, min_empresa, lista_ordenada, delta_time = controller.req_5(control,city, fecha_inicial, fecha_final, tipo)
     print()
     print("El total de ofertas de trabajo publicadas en el periodo buscado es de: " + str(total_ofertas) + " ofertas")
     print("El total de empresas que publicaron por lo menos una oferta en la ciudad de consulta es de: " + str(dato_empresas) + " empresas")
@@ -162,6 +162,7 @@ def print_req_5(control, tipo):
             oferta = lista_ordenada["elements"][i-1]
             print( str(i) + " . " + 'Fecha Publicacion: ' + oferta["published_at"] + " , " + 'Titulo oferta: ' +  oferta["title"] + " , " + 'Nombre Empresa: ' + oferta["company_name"]+  " , " +'Tipo de Ubicación: ' + oferta["workplace_type"] + " , " +'Tamaño Empresa: ' + oferta["company_size"])
             i += 1
+    print("Para", size, " ofertas, el tiempo es:",str(delta_time), "[ms]")
 
 
 def print_req_6(control,tipo
@@ -243,6 +244,7 @@ def print_req_7(control, tipo):
     fecha_inicial = input("Ingrese la fecha inicial de busqueda (formato %Y-%m-%d): ")
     fecha_final =  input("Ingrese la fecha final de busqueda (formato %Y-%m-%d): ")
     total_ofertas, total_ciudades, max_pais, cont_pais, max_ciudad, cont_ciudad, habilidades, max_habilidad, max_conteo, min_habilidad, min_conteo, niv_min_promedio, empresas_niv,  max_empresas, max_conteoo,min_empresas, min_conteoo, empresas_multilocations = controller.req_7(control,num_paises, fecha_inicial, fecha_final, tipo)
+    
     print()
     print("El total de ofertas de trabajo publicadas en el periodo buscado es de: " + str(total_ofertas) + " ofertas para " + str(num_paises) + " paises")
     print("El numero de ciudades donde se oferto trabajo es de: " + str(total_ciudades) + " ciudades")
