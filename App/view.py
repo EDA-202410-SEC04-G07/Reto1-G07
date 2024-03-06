@@ -21,6 +21,7 @@
  """
 
 import config as cf
+import model
 import sys
 import controller
 assert cf
@@ -111,12 +112,25 @@ def print_req_2(control):
     pass
 
 
+
 def print_req_3(control):
-    """
-        Función que imprime la solución del Requerimiento 3 en consola
-    """
-    # TODO: Imprimir el resultado del requerimiento 3
-    pass
+
+    empresa = input("Ingrese el nombre de la empresa: ")
+    fecha_inicial = input("Ingrese la fecha inicial del periodo a consultar (formato %Y-%m-%d): ")
+    fecha_final =  input("Ingrese la fecha final del periodo a consultar (formato %Y-%m-%d): ")
+
+    ofertas_total, ofertas_junior, ofertas_mid, ofertas_senior, ofertas_empresa = controller.req_3(control)
+
+    print()
+    print("El total de ofertas de trabajo publicadas en el periodo buscado es de: " + str(ofertas_total))
+    print("El numero de ofertas junior es de: " + str(ofertas_junior))
+    print("El numero de ofertas mid es de: " + str(ofertas_mid))
+    print("El numero de ofertas senior es de: " + str(ofertas_senior))
+
+    print()
+    print("Listado de ofertas de la empresa:")
+    for oferta in ofertas_empresa:
+        print(f"{oferta['fecha']} - {oferta['titulo']} - {oferta['nivel_experiencia']} - {oferta['ciudad']} - {oferta['pais']} - {oferta['tamaño_empresa']} - {oferta['lugar_trabajo']} - {oferta['contratar_ucranianos']}")
 
 
 def print_req_4(control):
@@ -171,14 +185,14 @@ def print_req_6(control,tipo
     end_date = input("Ingrese la fecha final del periodo a consultar (con formato \"%Y-%m-%d\"): ")
 
     control = {"model": None}
-    control["model"] = req_6(control, country, start_date, end_date, experience)
+    control["model"] = controller.req_6(control, country, start_date, end_date, experience)
     ofertas_con_skill = control["model"][0]
     empresas_con_skill = control["model"][1]
     promedio_ofertas_empresa = control["model"][2]
 
-    city_counts = count_jobs_by_city(ofertas_con_skill)
-    city_counts = mejor_peor_oferta_por_ciudad(city_counts)
-    city_counts = promedio_salario_por_ciudad(city_counts)
+    city_counts = model.count_jobs_by_city(ofertas_con_skill)
+    city_counts = model.mejor_peor_oferta_por_ciudad(city_counts)
+    city_counts = model.promedio_salario_por_ciudad(city_counts)
 
     ciudad_filtrada = country if country else None
 

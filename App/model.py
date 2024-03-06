@@ -26,6 +26,7 @@
 
 
 import config as cf
+import pandas as pd
 from datetime import datetime
 from Estructuras import Lista as lis
 from Sorts import Shell as shs
@@ -164,19 +165,30 @@ def req_2(data_structs):
 
 ##### REQUERIMIENTO 3 #####
 
-def jobs_compania_fecha(data_structs, company_name, start_date, end_date):
-    
-    jobs_req3 = [job for job in data_structs["jobs"] if job["company_name"] == company_name and
-                     start_date <= datetime.strptime(job["published_at"], "%Y-%m-%d") <= end_date]
-    return jobs_req3
+def req_3(data, empresa, fecha_inicial, fecha_final):
 
-def contar_jobs_experiencia(jobs):
-    
-    junior = sum(1 for job in jobs if job["expertise_level"] == "junior")
-    mid = sum(1 for job in jobs if job["expertise_level"] == "mid")
-    senior = sum(1 for job in jobs if job["expertise_level"] == "senior")
+    ofertas_empresa = data[(data['empresa'] == empresa) and (pd.to_datetime(data['fecha']) >= pd.to_datetime(fecha_inicial)) and
+                            (pd.to_datetime(data['fecha']) <= pd.to_datetime(fecha_final))]
 
-    return junior, mid, senior
+
+    ofertas_agrupadas = ofertas_empresa.groupby('nivel_experiencia').size()
+
+    ofertas_total = len(ofertas_empresa)
+    ofertas_junior = ofertas_agrupadas['junior'] if 'junior' in ofertas_agrupadas.index else 0
+    ofertas_mid = ofertas_agrupadas['mid'] if 'mid' in ofertas_agrupadas.index else 0
+    ofertas_senior = ofertas_agrupadas['senior'] if 'senior' in ofertas_agrupadas.index else 0
+
+    ofertas_ordenadas = ofertas_empresa.sort_values(['fecha', 'pais'])
+
+    respuesta = {
+        'ofertas_total': ofertas_total,
+        'ofertas_junior': ofertas_junior,
+        'ofertas_mid': ofertas_mid,
+        'ofertas_senior': ofertas_senior,
+        'ofertas_empresa': ofertas_ordenadas[['fecha', 'titulo', 'nivel_experiencia', 'ciudad', 'pais', 'tamaño_empresa', 'lugar_trabajo', 'contratar_ucranianos']].to_dict('records')
+    }
+
+    return respuesta
 
 
 def req_4(data_structs):

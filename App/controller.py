@@ -293,17 +293,11 @@ def req_2(control):
 
 
 ##### REQUERIMIENTO 3 #####
-def controlador_jobs_compania_fecha(data_structs, company_name, start_date, end_date):
-    
-    filtered_jobs = model.filter_jobs_compania_fecha(data_structs, company_name, start_date, end_date)
-    job_stats = model.contar_jobs_experiencia(filtered_jobs)
-    sorted_jobs = model.sort_jobs_compania_fecha(filtered_jobs)
-    view.print_job_req3(filtered_jobs)
-    #
-    #
-    #
-    #
-    #
+def req_3(control):
+   
+    # TODO: Modificar el requerimiento 3
+    ofertas_con_skill, empresas_con_skill, promedio_ofertas_empresa = model.req_3(control["model"])
+    return ofertas_con_skill, empresas_con_skill, promedio_ofertas_empresa
 
 
 def req_4(control):
